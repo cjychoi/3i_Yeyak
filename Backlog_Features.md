@@ -1,4 +1,4 @@
-#Backlog - Features to add
+# Backlog - Features to add
 
 ## Functions
 - Search bar
