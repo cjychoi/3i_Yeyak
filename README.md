@@ -28,5 +28,5 @@ This project is to implement a 'Device Reservation System' for 3i company. Curre
 ## Schedule Plans
 - Project Begin: **June 18, 2021**
 - Initial Realease: **July 16, 2021**
-- Bug Fixes: **July 23, 2021**
+- QA, Bug Fixes: **July 23, 2021**
 - Implementation: **July 26, 2021**
