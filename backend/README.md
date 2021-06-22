@@ -22,11 +22,11 @@
 # Reservation data structure
 ```json
 {
-  "device_id": "3i-A4-2018-31"
-  "reserver_name": "Andrew"
-  "start_date": ""
-  "end_date": ""
-  "start_time": ""
+  "device_id": "3i-A4-2018-31",
+  "reserver_name": "Andrew",
+  "start_date": "",
+  "end_date": "",
+  "start_time": "",
   "end_time": ""
 }
 ```
