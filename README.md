@@ -8,7 +8,7 @@ Personal project for implementing Device Reservation System for 3i, using Kubern
 ### 1. Description
 This project is to implement a 'Device Reservation System' for 3i company. Currently they are using Google Sheet to reserve test devices, which causes confusion and requires unnecessary time and effort. To replace this system, I will implement an app to scan devices' QR code and reserve it on a certain date & time.
 
-### 2-1. Frontend (App)
+### 2-1. Frontend (Mobile App)
 **Tool**: Flutter   
 **Lang**: Dart   
 
@@ -23,3 +23,9 @@ This project is to implement a 'Device Reservation System' for 3i company. Curre
 - main
 - dev
 - feature [feature/login-api]
+
+
+## Schedule Plans
+- Initial Realease: **July 16, 2021**
+- Bug Fixes: **July 23, 2021**
+- Implementation: **July 26, 2021**
