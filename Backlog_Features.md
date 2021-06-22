@@ -1,7 +1,7 @@
 # Backlog - Features to add
 
-## Functions
+### Functions
 - Search bar
 
-##UI
+### UI
 - Dark mode
