@@ -1,5 +1,4 @@
 # 3i_Yeyak(Device Reservation System)
-3i_Yeyak(Device Reservation System)
 Personal project for implementing Device Reservation System for 3i, using Kubernetes, Quarkus, and Flutter
 
 
