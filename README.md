@@ -16,3 +16,10 @@ This project is to implement a 'Device Reservation System' for 3i company. Curre
 **Lang**: Java   
 **Framework**: Kubernetes, Quarkus   
 **Build Tool**: Maven   
+
+
+## Naming Convention
+### Branches
+- main
+- dev
+- feature [feature/login-api]
