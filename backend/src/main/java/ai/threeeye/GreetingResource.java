@@ -13,4 +13,3 @@ public class GreetingResource {
         return "Hello RESTEasy";
     }
     
-}
