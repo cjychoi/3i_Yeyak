@@ -1,12 +1,8 @@
-// Copyright 2018 The Flutter team. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(LogIn());
 
-class MyApp extends StatelessWidget {
+class LogIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,7 +12,7 @@ class MyApp extends StatelessWidget {
           title: Text('3i Yeyak'),
         ),
         body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset('images/logo.png', width: 250, height: 250),
