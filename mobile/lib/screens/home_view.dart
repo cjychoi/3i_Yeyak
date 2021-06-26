@@ -74,22 +74,22 @@ class _HomePageState extends State<HomePage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    'Search by Device',
+                    'Search by Device', // search by device
                     style: TextStyle(fontSize: 16),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    'Search by Time',
+                    'Search by Time', // serach by time
                     style: TextStyle(fontSize: 16),
                   ),
                 ),
               ],
               onPressed: (int index) {
-                setState(() {
-                  for (int i = 0; i < isSelected.length; i++) {
-                    isSelected[i] = i == index;
+                setState(() { //when one toggle option is selected, de-select the other
+                  for (int i = 0; i < isSelected.length; i++) { 
+                    isSelected[i] = (i == index); //if i == index, set isSelected[i] = true, if i != index, set isSelcted[i] = false
                   }
                 });
               },
