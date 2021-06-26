@@ -13,7 +13,7 @@ class _LogInState extends State<LogIn> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Welcome to Flutter',
+        title: '3i Yeyak',
         initialRoute: '/login',
         routes: {
           '/login': (BuildContext context) => LoginPage(),
