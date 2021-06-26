@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/screens/login.dart';
+import 'package:mobile/screens/home_view.dart';
 
 void main() => runApp(LogIn());
 
-class LogIn extends StatelessWidget {
+class LogIn extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _LogInState();
+}
+
+class _LogInState extends State<LogIn> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Welcome to Flutter',
-      home: LoginPage(),
-    );
+        title: 'Welcome to Flutter',
+        initialRoute: '/login',
+        routes: {
+          '/login': (BuildContext context) => LoginPage(),
+          '/home': (BuildContext context) => HomePage(),
+        });
   }
 }
