@@ -19,23 +19,33 @@ class LoginPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end, // 가로 아래로 정렬
             children: <Widget>[
               Image.asset('images/logo.png', width: 250, height: 250),
-              TextField(
-                  decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Enter Name',
-              )),
+              TextFormField(  // Username 입력창
+                validator: (value) {
+                  if (value == null) {
+                    // 입력값이 없으면 메시지 출력
+                    return 'Enter text';
+                  } else
+                    return null;
+                },
+                // 텍스트폼필드에 스타일 적용
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(), // 텍스트필드의 외각선
+                    hintText: 'Enter Username', // 텍스트필드상에 출력되는 텍스트. 실제 값이 되진 않음
+                    labelText: "Enter Username"), // 텍스트필드의 상단에 출력되는 레이블 텍스트
+              ),
               Container(
+                // 갭
                 height: size.height * 0.02,
-              ), // 갭
+              ),
               ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).popAndPushNamed('/home');
-                  }, //버튼 press시 홈뷰로 전환
+                  }, // 버튼 press시 home_view로 전환
                   child: Text('Login')),
-
               Container(
+                // 하단부 갭
                 height: size.height * 0.4,
-              ) // 하단부 갭
+              )
             ],
           ),
         ],
