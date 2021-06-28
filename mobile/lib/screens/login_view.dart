@@ -6,10 +6,12 @@ class LoginPage extends StatelessWidget {
     final Size size = MediaQuery.of(context).size; // 앱 구동 맥락에서의 사이즈 정의
 
     return Scaffold(
+      /*
       appBar: AppBar(
         title: Text('3i Yeyak'), // 상단 App Bar 텍스트
         backgroundColor: Colors.indigo, // 상단 App Bar 색상
       ),
+      */
       body: Stack(
         alignment: Alignment.center, // 세로 가운데 정렬
         children: <Widget>[
@@ -19,13 +21,14 @@ class LoginPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end, // 가로 아래로 정렬
             children: <Widget>[
               Image.asset('images/logo.png', width: 250, height: 250),
-              TextFormField(  // Username 입력창
+              TextFormField(
+                // Username 입력창
                 validator: (value) {
-                  if (value == null) {
+                  if (value == null || value.isEmpty) {
                     // 입력값이 없으면 메시지 출력
                     return 'Enter text';
-                  } else
-                    return null;
+                  }
+                  return null;
                 },
                 // 텍스트폼필드에 스타일 적용
                 decoration: InputDecoration(
