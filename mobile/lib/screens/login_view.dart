@@ -24,27 +24,41 @@ class LoginPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start, // 가로 아래로 정렬
             children: <Widget>[
               Container(
-                // 상단부 갭
                 height: size.height * 0.2,
-              ),
+              ), // 상단부 갭
               Image.asset('images/logo.png', width: 250, height: 250),
-              TextFormField(
-                // Username 입력창
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    // 입력값이 없으면 메시지 출력
-                    return 'Please enter text';
-                  }
-                  return null;
-                },
-                controller: _usernameController, // username 컨트롤러로 변수에 값 저장
-
-                // 텍스트폼필드에 스타일 적용
-                decoration: InputDecoration(
-                    icon: Icon(Icons.account_circle), // 계정 아이콘
-                    border: OutlineInputBorder(), // 텍스트필드의 외각선
-                    hintText: 'Enter Username', // 텍스트필드상에 출력되는 텍스트. 실제 값이 되진 않음
-                    labelText: "Enter Username"), // 텍스트필드의 상단에 출력되는 레이블 텍스트
+              Padding(
+                padding: EdgeInsets.all(30), // Username 입력창 주위 갭
+                child: Card(
+                  // 위로 떠오른 효과
+                  elevation: 3, // 떠오른 정도
+                  child: Form(
+                      key: _formKey, // unique ID 지정
+                      child: Column(
+                        children: <Widget>[
+                          TextFormField(
+                            // Username 입력창
+                            controller:
+                                _usernameController, // username 컨트롤러로 변수에 값 저장
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                // 입력값이 없으면 메시지 출력
+                                return 'Please enter text';
+                              }
+                              return null;
+                            },
+                            // 텍스트폼필드에 스타일 적용
+                            decoration: InputDecoration(
+                                // icon: Icon(Icons.account_circle), // 계정 아이콘
+                                border: OutlineInputBorder(), // 텍스트필드의 외각선
+                                hintText:
+                                    'Enter Username', // 텍스트필드상에 출력되는 텍스트. 실제 값이 되진 않음
+                                labelText:
+                                    "Username"), // 텍스트필드의 상단에 출력되는 레이블 텍스트
+                          ),
+                        ],
+                      )),
+                ),
               ),
               Container(
                 // 텍스트, 로그인 버튼 사이 갭
