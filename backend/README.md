@@ -1,6 +1,3 @@
-### Get Start
-
-
 # User data structure
 ```json
 {
@@ -33,3 +30,14 @@
   "end_time": ""
 }
 ```
+
+
+## lombok 
+
+Lombok is used to reduce boilerplate code for model/data objects
+
+ It can generate getters and setters for those object automatically by using Lombok annotations. The easiest way is to use the @Data annotation.
+
+
+Official page - https://projectlombok.org/
+Introduction_kr - https://taetaetae.github.io/2017/02/22/lombok/
