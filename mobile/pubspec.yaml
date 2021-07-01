@@ -33,6 +33,13 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  flutter_launcher_icons: "^0.7.3"  # 아이콘 추가
+
+flutter_icons:  # 아이콘 추가
+  android: true
+  ios: true
+  image_path: "icon/app_icon.png"
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
