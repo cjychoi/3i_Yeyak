@@ -52,6 +52,10 @@ class LoginPage extends StatelessWidget {
                             // 텍스트폼필드에 스타일 적용
                             decoration: InputDecoration(
                                 // icon: Icon(Icons.account_circle), // 계정 아이콘
+                                enabledBorder: const OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Colors.blue, width: 2.0),
+                                ),
                                 border: OutlineInputBorder(), // 텍스트필드의 외각선
                                 hintText:
                                     'Enter Username', // 텍스트필드상에 출력되는 텍스트. 실제 값이 되진 않음
@@ -67,15 +71,19 @@ class LoginPage extends StatelessWidget {
                 height: 25,
               ),
               ElevatedButton(
-                  style: ButtonStyle( // 버튼 테두리 둥글게
+                  style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsets>(
+                          EdgeInsets.all(15)),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
+                              // 버튼 테두리 둥글게
+                              borderRadius: BorderRadius.circular(25.0),
                               side: BorderSide(color: Colors.white)))),
-                  onPressed: () { // 버튼 press시 home_view로 전환
+                  onPressed: () {
+                    // 버튼 press시 home_view로 전환
                     Navigator.of(context).popAndPushNamed('/home');
-                  }, 
-                  child: Text('Login')),
+                  },
+                  child: Text('Login', style: TextStyle(fontSize: 20))),
             ],
           ),
         ],
