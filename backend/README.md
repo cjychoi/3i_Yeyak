@@ -1,20 +1,21 @@
 # User data structure
 ```json
 {
-  "id": "0001",
-  "name": "Andrew"
+  "id": "%s",
+  "user_name": "Andrew",
+  "team": "Mobile"
 }
 ```
 
 # Device information data structure
 ```json
   {
-    "id": "3i-A4-2018-31",
-    "brand": "APPLE",
-    "name": "iPhone 6S",
+    "device_id": "3i-A4-2018-31",
+    "manufacturer": "APPLE",
+    "model": "iPhone 6S",
     "color": "black",
     "os": "iOS 10",
-    "available": true,
+    "availability": true,
     "description": "액정 파손"
   }
 ```
@@ -23,16 +24,13 @@
 ```json
 {
   "device_id": "3i-A4-2018-31",
-  "reserver_name": "Andrew",
+  "reservation_name": "Andrew",
   "start_date": "",
   "end_date": "",
   "start_time": "",
   "end_time": ""
 }
 ```
-
-
-## lombok 
 
 Lombok is used to reduce boilerplate code for model/data objects
 
