@@ -24,11 +24,11 @@ class LoginPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start, // 가로 아래로 정렬
             children: <Widget>[
               Container(
-                height: size.height * 0.2,
+                height: size.height * 0.05,
               ), // 상단부 갭
               Image.asset('images/logo.png', width: 250, height: 250),
               Padding(
-                padding: EdgeInsets.all(30), // Username 입력창 주위 갭
+                padding: EdgeInsets.all(10), // Username 입력창 주위 갭
                 child: Card(
                   // 위로 떠오른 효과
                   elevation: 3, // 떠오른 정도
