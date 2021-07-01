@@ -18,7 +18,9 @@ class LoginPage extends StatelessWidget {
       body: Stack(
         alignment: Alignment.center, // 세로 가운데 정렬
         children: <Widget>[
-          // Container(color: Colors.white,), // 배경 색
+          Container(
+            color: Colors.white,
+          ), // 배경 색
           Column(
             crossAxisAlignment: CrossAxisAlignment.center, // 세로 가운데 정렬
             mainAxisAlignment: MainAxisAlignment.start, // 가로 아래로 정렬
@@ -26,9 +28,9 @@ class LoginPage extends StatelessWidget {
               Container(
                 height: size.height * 0.05,
               ), // 상단부 갭
-              Image.asset('images/logo.png', width: 250, height: 250),
+              Image.asset('images/login_view_logo.png', width: 250),
               Padding(
-                padding: EdgeInsets.all(10), // Username 입력창 주위 갭
+                padding: EdgeInsets.all(20), // Username 입력창 주위 갭
                 child: Card(
                   // 위로 떠오른 효과
                   elevation: 3, // 떠오른 정도
@@ -65,9 +67,14 @@ class LoginPage extends StatelessWidget {
                 height: 25,
               ),
               ElevatedButton(
-                  onPressed: () {
+                  style: ButtonStyle( // 버튼 테두리 둥글게
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                              side: BorderSide(color: Colors.white)))),
+                  onPressed: () { // 버튼 press시 home_view로 전환
                     Navigator.of(context).popAndPushNamed('/home');
-                  }, // 버튼 press시 home_view로 전환
+                  }, 
                   child: Text('Login')),
             ],
           ),
