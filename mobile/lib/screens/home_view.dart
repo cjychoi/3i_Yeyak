@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/screens/login_view.dart';
+import 'package:hexcolor/hexcolor.dart';
+//import 'package:mobile/screens/models.dart';
+//import 'models.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -18,21 +22,42 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: TextFormField(
-            decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          labelText: 'Enter Name',
-        )),
-        backgroundColor: Colors.grey, // App bar 배색
+        /*title: GestureDetector(
+          onTap: () {}, // handle your image tap here
+          child: Image.asset(
+            'menu.png',
+            fit: BoxFit.cover, // this is the solution for border
+            width: 20.0,
+            height: 20.0,
+          ),
+        ),*/
+        leading: IconButton(
+          icon: Image.asset('images/menu.png',
+              fit: BoxFit.cover,
+              width: 30.0,
+              height:
+                  30.0), //Icon(Icons.notes), //Image.asset('images/menu.png', width: 50),
+          onPressed: () => {},
+        ),
+
+        backgroundColor: Colors.white, // App bar 배색
+        centerTitle: false,
+        titleSpacing: 0.0,
+        title: Transform(
+          // you can forcefully translate values left side using Transform
+          transform: Matrix4.translationValues(-15.0, 0.0, 0.0),
+          child: new Text(
+            LoginPage.uName,
+            style: new TextStyle(color: Colors.black, fontSize: 25.0),
+          ),
+        ),
         actions: [
           IconButton(
-            icon: Icon(Icons.edit),
+            icon: Icon(
+              Icons.edit,
+              color: Colors.black,
+            ),
             onPressed: () => {Navigator.of(context).popAndPushNamed('/login')},
-          ),
-          Padding(padding: EdgeInsets.all(100)),
-          IconButton(
-            icon: Icon(Icons.notes),
-            onPressed: () => {},
           ),
         ],
       ),
@@ -41,27 +66,48 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.start, //세로 위에 맞추기
           crossAxisAlignment: CrossAxisAlignment.center, //가로 중앙으로 맞추기
           children: <Widget>[
+            Padding(padding: const EdgeInsets.all(30)),
             ToggleButtons(
               //찾기 토글 버튼
-              borderColor: Colors.black, //보더색
-              fillColor: Colors.grey, //버튼 색
-              borderWidth: 1, //보더 두깨
+              borderColor: Colors.white, //보더색
+              fillColor: HexColor("0057FF"), //버튼 색
+              borderWidth: 0, //보더 두깨
               selectedBorderColor: Colors.black, // 선택시 보더 색
               selectedColor: Colors.white, // 선택시 텍스트 색
-              borderRadius: BorderRadius.circular(0),
+              borderRadius: BorderRadius.circular(10),
               children: <Widget>[
-                Padding(
+                Container(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    'Search by Device', // search by device
-                    style: TextStyle(fontSize: 16),
+                    'Device', // search by device
+                    style: TextStyle(fontSize: 25),
+                  ),
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
                   ),
                 ),
-                Padding(
+                Container(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    'Search by Time', // serach by time
-                    style: TextStyle(fontSize: 16),
+                    'Time', // serach by time
+                    style: TextStyle(fontSize: 25),
+                  ),
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
                   ),
                 ),
               ],
