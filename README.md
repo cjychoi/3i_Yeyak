@@ -32,4 +32,9 @@ This project is to implement a 'Device Reservation System' for 3i company. Curre
 - Implementation: **July 26, 2021**
 
 
+## Documentations
+- [Project Task Board](https://docs.google.com/spreadsheets/d/1VH-VrQa1hBcYTe9yfBdAqPpqFRbSlgqYO7js5PQ9_Fo/edit#gid=0)
+- [App Design Draft](https://docs.google.com/presentation/d/1xIXYqbc5GvXIOPXgkGIROFNXHytIY0TYmFqHph_YzdY/edit#slide=id.ge181ed59f1_0_207)
+- [App UI Design Figma](https://www.figma.com/file/lv8eyMw9rm3onunDxz8Dt0/3i-YeYak)
+
     
