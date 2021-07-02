@@ -1,36 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/screens/login_view.dart';
 import 'package:hexcolor/hexcolor.dart';
-//import 'package:mobile/screens/models.dart';
-//import 'models.dart';
 
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late List<bool> isSelected;
+  late TabController _tabController;
 
   @override
   void initState() {
-    isSelected = [true, false];
+// TODO: implement initState
     super.initState();
+    _tabController = new TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        /*title: GestureDetector(
-          onTap: () {}, // handle your image tap here
-          child: Image.asset(
-            'menu.png',
-            fit: BoxFit.cover, // this is the solution for border
-            width: 20.0,
-            height: 20.0,
-          ),
-        ),*/
         leading: IconButton(
           icon: Icon(
             Icons.edit,
@@ -53,80 +50,78 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             icon: Image.asset('images/menu.png',
-                fit: BoxFit.cover,
-                width: 30.0,
-                height:
-                    30.0), //Icon(Icons.notes), //Image.asset('images/menu.png', width: 50),
+                fit: BoxFit.cover, width: 30.0, height: 30.0),
             onPressed: () => {},
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start, //세로 위에 맞추기
-          crossAxisAlignment: CrossAxisAlignment.center, //가로 중앙으로 맞추기
-          /*new Text ("Search by",
-          style: new TextStyle(color: HexColor("0057FF"), fontSize: 25.0),*/
-          children: <Widget>[
-            Image.asset('images/search_by.png', width: 200),
-//            Padding(padding: const EdgeInsets.all(15)),
-            ToggleButtons(
-              //찾기 토글 버튼
-              borderColor: Colors.white, //보더색
-              fillColor: HexColor("0057FF"), //버튼 색
-              borderWidth: 0, //보더 두깨
-              selectedBorderColor: Colors.black, // 선택시 보더 색
-              selectedColor: Colors.white, // 선택시 텍스트 색
-              borderRadius: BorderRadius.circular(10),
+/*
+
+          */
+      body: Column(
+        children: <Widget>[
+          //   Image.asset("path"),
+          Container(
+            child: Column(
               children: <Widget>[
+                Image.asset('images/search_by.png', width: 200),
                 Container(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Device', // search by device
-                    style: TextStyle(fontSize: 25),
-                  ),
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: Offset(0, 3), // changes position of shadow
+                  height: 50,
+                  color: HexColor("0057FF"),
+                  child: TabBar(
+                    tabs: [
+                      Container(
+                        width: 70.0,
+                        child: new Text(
+                          'Device',
+                          style: TextStyle(
+                            fontSize: 20,
+                            //
+                          ),
+                        ),
                       ),
+                      Container(
+                        width: 70.0,
+                        child: new Text(
+                          'Time',
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                      )
                     ],
+                    unselectedLabelColor: const Color(0xffacb3bf),
+                    indicatorColor: HexColor("0057FF"),
+                    labelColor: Colors.white,
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    indicatorWeight: 3.0,
+                    indicatorPadding: EdgeInsets.all(10),
+                    isScrollable: false,
+                    controller: _tabController,
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Time', // serach by time
-                    style: TextStyle(fontSize: 25),
-                  ),
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: Offset(0, 3), // changes position of shadow
+                  height: 100,
+                  child:
+                      TabBarView(controller: _tabController, children: <Widget>[
+                    Container(
+                      child: IconButton(
+                        //mainAxisAlignment: MainAxisAlignment.start, //세로 위에 맞추기
+                        //crossAxisAlignment: CrossAxisAlignment.center, //가로 중앙으로 맞추기
+                        icon: Image.asset('images/capture.png',
+                            fit: BoxFit.cover, width: 30.0, height: 30.0),
+                        onPressed: () => {},
                       ),
-                    ],
-                  ),
+                    ),
+                    Container(
+                      child: Text("Calandar :)"),
+                    )
+                  ]),
                 ),
               ],
-              onPressed: (int index) {
-                setState(() {
-                  //when one toggle option is selected, de-select the other
-                  for (int i = 0; i < isSelected.length; i++) {
-                    isSelected[i] = (i ==
-                        index); //if i == index, set isSelected[i] = true, if i != index, set isSelcted[i] = false
-                  }
-                });
-              },
-              isSelected: isSelected,
             ),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
