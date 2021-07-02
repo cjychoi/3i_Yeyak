@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+//import 'package:mobile/screens/models.dart';
+//mport 'models.dart';
 
 class LoginPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final _usernameController = TextEditingController(); // username 저장용
-
+  static String uName = "userName";
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size; // 앱 구동 맥락에서의 사이즈 정의
@@ -50,6 +52,10 @@ class LoginPage extends StatelessWidget {
                               return null;
                             },
                             // 텍스트폼필드에 스타일 적용
+                            onChanged: (String text) {
+                              //텍스트가 입력될때마다 전역 변수로 저장
+                              uName = text;
+                            },
                             decoration: InputDecoration(
                                 // icon: Icon(Icons.account_circle), // 계정 아이콘
                                 enabledBorder: const OutlineInputBorder(
