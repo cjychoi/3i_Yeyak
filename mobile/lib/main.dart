@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/screens/login_view.dart';
 import 'package:mobile/screens/home_view.dart';
-import 'package:mobile/screens/qr_scan_view.dart';
 
 void main() => runApp(LogIn());
 
@@ -16,7 +15,6 @@ class _LogInState extends State<LogIn> {
     return MaterialApp(title: '3i Yeyak', initialRoute: '/login', routes: {
       '/login': (BuildContext context) => LoginPage(),
       '/home': (BuildContext context) => HomePage(),
-      '/scan': (BuildContext context) => ScanPage(),
     });
   }
 }

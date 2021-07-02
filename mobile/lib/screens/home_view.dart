@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mobile/screens/login_view.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:flutter/services.dart'; //
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart'; //barcode scanner
 
 class HomePage extends StatefulWidget {
   @override
@@ -8,14 +12,32 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+  //탭바 앱바 밑 바디에 사용하기
   late List<bool> isSelected;
   late TabController _tabController;
 
   @override
   void initState() {
-// TODO: implement initState
     super.initState();
     _tabController = new TabController(length: 2, vsync: this);
+  }
+
+  Future<void> scanQR() async {
+    //QR Scanner API
+    String barcodeScanRes;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.QR);
+      print(barcodeScanRes);
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
   }
 
   @override
@@ -33,7 +55,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             Icons.edit,
             color: Colors.black,
           ),
-          onPressed: () => {Navigator.of(context).popAndPushNamed('/login')},
+          onPressed: () => {
+            //Navigator.pop(context)},
+            Navigator.of(context).popAndPushNamed('/login')
+          },
         ),
 
         backgroundColor: Colors.white, // App bar 배색
@@ -108,8 +133,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       child: IconButton(
                         icon: Image.asset('images/capture.png',
                             fit: BoxFit.cover, width: 150.0, height: 150.0),
-                        onPressed: () =>
-                            {Navigator.of(context).popAndPushNamed('/home')},
+                        onPressed: () => {scanQR()},
+                        //Navigator.of(context).popAndPushNamed('/home')},
                       ),
                     ),
                     Container(
