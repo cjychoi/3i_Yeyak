@@ -32,12 +32,11 @@ class _HomePageState extends State<HomePage> {
           ),
         ),*/
         leading: IconButton(
-          icon: Image.asset('images/menu.png',
-              fit: BoxFit.cover,
-              width: 30.0,
-              height:
-                  30.0), //Icon(Icons.notes), //Image.asset('images/menu.png', width: 50),
-          onPressed: () => {},
+          icon: Icon(
+            Icons.edit,
+            color: Colors.black,
+          ),
+          onPressed: () => {Navigator.of(context).popAndPushNamed('/login')},
         ),
 
         backgroundColor: Colors.white, // App bar 배색
@@ -53,11 +52,12 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [
           IconButton(
-            icon: Icon(
-              Icons.edit,
-              color: Colors.black,
-            ),
-            onPressed: () => {Navigator.of(context).popAndPushNamed('/login')},
+            icon: Image.asset('images/menu.png',
+                fit: BoxFit.cover,
+                width: 30.0,
+                height:
+                    30.0), //Icon(Icons.notes), //Image.asset('images/menu.png', width: 50),
+            onPressed: () => {},
           ),
         ],
       ),
@@ -68,7 +68,8 @@ class _HomePageState extends State<HomePage> {
           /*new Text ("Search by",
           style: new TextStyle(color: HexColor("0057FF"), fontSize: 25.0),*/
           children: <Widget>[
-            Padding(padding: const EdgeInsets.all(30)),
+            Image.asset('images/search_by.png', width: 200),
+//            Padding(padding: const EdgeInsets.all(15)),
             ToggleButtons(
               //찾기 토글 버튼
               borderColor: Colors.white, //보더색
