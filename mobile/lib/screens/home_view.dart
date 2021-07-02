@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       )
                     ],
                     unselectedLabelColor: const Color(0xffacb3bf),
-                    indicatorColor: HexColor("0057FF"),
+                    indicatorColor: Colors.white,
                     labelColor: Colors.white,
                     indicatorSize: TabBarIndicatorSize.tab,
                     indicatorWeight: 3.0,
@@ -106,11 +106,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       TabBarView(controller: _tabController, children: <Widget>[
                     Container(
                       child: IconButton(
-                        //mainAxisAlignment: MainAxisAlignment.start, //세로 위에 맞추기
-                        //crossAxisAlignment: CrossAxisAlignment.center, //가로 중앙으로 맞추기
                         icon: Image.asset('images/capture.png',
-                            fit: BoxFit.cover, width: 30.0, height: 30.0),
-                        onPressed: () => {},
+                            fit: BoxFit.cover, width: 150.0, height: 150.0),
+                        onPressed: () =>
+                            {Navigator.of(context).popAndPushNamed('/home')},
                       ),
                     ),
                     Container(
