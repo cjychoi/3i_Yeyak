@@ -65,6 +65,8 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start, //세로 위에 맞추기
           crossAxisAlignment: CrossAxisAlignment.center, //가로 중앙으로 맞추기
+          /*new Text ("Search by",
+          style: new TextStyle(color: HexColor("0057FF"), fontSize: 25.0),*/
           children: <Widget>[
             Padding(padding: const EdgeInsets.all(30)),
             ToggleButtons(
