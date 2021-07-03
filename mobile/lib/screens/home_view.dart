@@ -5,6 +5,7 @@ import 'package:mobile/screens/login_view.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/services.dart'; //
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart'; //barcode scanner
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -138,8 +139,24 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       ),
                     ),
                     Container(
-                      child: Text("Calandar :)"),
-                    )
+                      child: IconButton(
+                        icon: Icon(Icons.calendar_today_sharp),
+                        iconSize: 70,
+                        onPressed: () {
+                          DatePicker.showDatePicker(context,
+                              showTitleActions: true,
+                              minTime: DateTime(2021, 1, 1),
+                              maxTime: DateTime(2022, 12, 31),
+                              onChanged: (date) {
+                            print('change $date');
+                          }, onConfirm: (date) {
+                            print('confirm $date');
+                          },
+                              currentTime: DateTime.now(),
+                              locale: LocaleType.en);
+                        },
+                      ),
+                    ),
                   ]),
                 ),
               ],
