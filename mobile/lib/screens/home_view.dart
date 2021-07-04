@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/screens/login_view.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -18,6 +19,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late List<bool> isSelected;
   late TabController _tabController;
   final format = DateFormat("yyyy-MM-dd HH:mm");
+  DateTime? value;
+  DateTime initialDateTime = DateTime.now();
+  DateTime finalDateTime = DateTime.now();
   @override
   void initState() {
     super.initState();
@@ -130,7 +134,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       ),
                     ),
                     Container(
-                      height: 170, //put tabbar below appbar
+                      height: 300, //put tabbar below appbar
                       child: TabBarView(
                           controller: _tabController,
                           children: <Widget>[
@@ -161,13 +165,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                       initialTime: TimeOfDay.fromDateTime(
                                           currentValue ?? DateTime.now()),
                                     );
-                                    return DateTimeField.combine(date, time);
+                                    initialDateTime =
+                                        DateTimeField.combine(date, time);
+                                    return initialDateTime;
                                   } else {
                                     return currentValue;
                                   }
                                 },
                               ),
-                              Text('Return date & time: (${format.pattern})'),
+                              Text('Return date & time: (${finalDateTime})'),
                               DateTimeField(
                                 format: format,
                                 onShowPicker: (context, currentValue) async {
@@ -183,12 +189,51 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                       initialTime: TimeOfDay.fromDateTime(
                                           currentValue ?? DateTime.now()),
                                     );
-                                    return DateTimeField.combine(date, time);
+                                    finalDateTime =
+                                        DateTimeField.combine(date, time);
+                                    return finalDateTime;
                                   } else {
                                     return currentValue;
                                   }
                                 },
                               ),
+                              Column(children: <Widget>[
+                                Text('iOS style pickers (${format.pattern})'),
+                                DateTimeField(
+                                  initialValue: value,
+                                  format: format,
+                                  onShowPicker: (context, currentValue) async {
+                                    await showCupertinoModalPopup(
+                                        context: context,
+                                        builder: (context) {
+                                          return BottomSheet(
+                                            builder: (context) => Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Container(
+                                                  constraints: BoxConstraints(
+                                                      maxHeight: 200),
+                                                  child: CupertinoDatePicker(
+                                                    onDateTimeChanged:
+                                                        (DateTime date) {
+                                                      value = date;
+                                                    },
+                                                  ),
+                                                ),
+                                                TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(context),
+                                                    child: Text('Ok')),
+                                              ],
+                                            ),
+                                            onClosing: () {},
+                                          );
+                                        });
+                                    setState(() {});
+                                    return value;
+                                  },
+                                ),
+                              ]),
                             ]),
                           ]),
                     ),
