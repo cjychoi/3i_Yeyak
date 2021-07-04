@@ -1,4 +1,4 @@
-package ai.threeeye;
+package ai.threeeye.yeyak.domain;
 
 import lombok.*;
 
