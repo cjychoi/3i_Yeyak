@@ -20,7 +20,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final format = DateFormat(
       "yyyy-MM-dd HH-mm"); //the date format it will be displayed at date format field
   bool? showResetIcon = true;
-  DateTime? value;
+  DateTime? value_rent_dev;
+  DateTime? value_return_dev;
+  DateTime? value_rent_date;
+  DateTime? value_return_date;
   // late DateTime value;
   @override
   void initState() {
@@ -180,20 +183,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           Text('Search Device', style: TextStyle(fontSize: 25)),
                           Container(
                             child: IconButton(
+                              iconSize: 200,
                               icon: Image.asset(
-                                  'images/capture.png', //Camera image that proeceeds to QR scanning screen
-                                  fit: BoxFit.cover,
-                                  width: 250.0,
-                                  height: 250.0),
+                                'images/capture.png', //Camera image that proeceeds to QR scanning screen
+                              ),
                               onPressed: () => {scanQR()},
                             ),
                           ),
                           Text('Select Date', style: TextStyle(fontSize: 25)),
+                          Padding(padding: EdgeInsets.all(20)),
                           Text(
                               'Select rent date'), //rent date under search by device
                           DateTimeField(
                             initialValue:
-                                value, //initial value is set as current time
+                                value_rent_dev, //initial value is set as current time
                             format: format,
                             resetIcon: Icon(Icons.delete),
                             onShowPicker: (context, currentValue) async {
@@ -212,7 +215,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                               // minuteInterval: 30,
                                               onDateTimeChanged:
                                                   (DateTime date) {
-                                                value = date;
+                                                value_rent_dev = date;
                                               },
                                             ),
                                           ),
@@ -227,13 +230,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   });
                               setState(
                                   () {}); //it runs whenever internal state of the object change occurs,
-                              return value;
+                              return value_rent_dev;
                             },
                           ),
                           Text(
-                              'select return date'), //Return date under search by device
+                              'Select Return Date'), //Return date under search by device
                           DateTimeField(
-                            initialValue: value,
+                            initialValue: value_return_dev,
                             format: format,
                             resetIcon:
                                 showResetIcon! ? Icon(Icons.delete) : null,
@@ -253,7 +256,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                               //     10, //set unit for each minute change to 30 mins
                                               onDateTimeChanged:
                                                   (DateTime date) {
-                                                value = date;
+                                                value_return_dev = date;
                                               },
                                             ),
                                           ),
@@ -267,15 +270,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                     );
                                   });
                               setState(() {});
-                              return value;
+                              return value_return_dev;
                             },
                           ),
                         ]),
                         Column(children: <Widget>[
                           Column(children: <Widget>[
-                            Text('Select rent date'),
+                            Text('Select Rent Date'),
                             DateTimeField(
-                              initialValue: value,
+                              initialValue: value_rent_date,
                               format: format,
                               resetIcon:
                                   showResetIcon! ? Icon(Icons.delete) : null,
@@ -295,7 +298,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                 //     30, //set unit for each minute change to 10 mins
                                                 onDateTimeChanged:
                                                     (DateTime date) {
-                                                  value = date;
+                                                  value_rent_date = date;
                                                 },
                                               ),
                                             ),
@@ -309,13 +312,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                       );
                                     });
                                 setState(() {});
-                                return value;
+                                return value_rent_date;
                               },
                             ),
                             Column(children: <Widget>[
-                              Text('select return date'),
+                              Text('Select Return Date'),
                               DateTimeField(
-                                initialValue: value,
+                                initialValue: value_return_date,
                                 format: format,
                                 resetIcon: Icon(
                                     Icons.delete), //Set reset icon as trashcan
@@ -335,7 +338,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                   //     60, //set unit for each minute change to 10 mins
                                                   onDateTimeChanged:
                                                       (DateTime date) {
-                                                    value = date;
+                                                    value_return_date = date;
                                                   },
                                                 ),
                                               ),
@@ -349,7 +352,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                         );
                                       });
                                   setState(() {});
-                                  return value;
+                                  return value_return_date;
                                 },
                               ),
                             ]),
