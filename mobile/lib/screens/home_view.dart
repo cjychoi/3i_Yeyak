@@ -180,7 +180,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       child: TabBarView(controller: _tabController, children: <
                           Widget>[
                         Column(children: <Widget>[
-                          Text('Search Device', style: TextStyle(fontSize: 25)),
+                          Padding(padding: EdgeInsets.all(15)),
+                          Text('Search Devices',
+                              style: TextStyle(fontSize: 25)),
                           Container(
                             child: IconButton(
                               iconSize: 200,
@@ -190,10 +192,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               onPressed: () => {scanQR()},
                             ),
                           ),
-                          Text('Select Date', style: TextStyle(fontSize: 25)),
+                          Text('Select Dates', style: TextStyle(fontSize: 25)),
                           Padding(padding: EdgeInsets.all(20)),
                           Text(
-                              'Select rent date'), //rent date under search by device
+                              'Select Rent Date'), //rent date under search by device
                           DateTimeField(
                             initialValue:
                                 value_rent_dev, //initial value is set as current time
@@ -233,6 +235,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               return value_rent_dev;
                             },
                           ),
+                          Padding(padding: EdgeInsets.all(20)),
                           Text(
                               'Select Return Date'), //Return date under search by device
                           DateTimeField(
@@ -276,6 +279,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         ]),
                         Column(children: <Widget>[
                           Column(children: <Widget>[
+                            Padding(padding: EdgeInsets.all(20)),
+                            Text('Select Date', style: TextStyle(fontSize: 25)),
+                            Padding(padding: EdgeInsets.all(15)),
                             Text('Select Rent Date'),
                             DateTimeField(
                               initialValue: value_rent_date,
@@ -315,47 +321,46 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 return value_rent_date;
                               },
                             ),
-                            Column(children: <Widget>[
-                              Text('Select Return Date'),
-                              DateTimeField(
-                                initialValue: value_return_date,
-                                format: format,
-                                resetIcon: Icon(
-                                    Icons.delete), //Set reset icon as trashcan
-                                onShowPicker: (context, currentValue) async {
-                                  await showCupertinoModalPopup(
-                                      context: context,
-                                      builder: (context) {
-                                        return BottomSheet(
-                                          builder: (context) => Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Container(
-                                                constraints: BoxConstraints(
-                                                    maxHeight: 200),
-                                                child: CupertinoDatePicker(
-                                                  // minuteInterval:
-                                                  //     60, //set unit for each minute change to 10 mins
-                                                  onDateTimeChanged:
-                                                      (DateTime date) {
-                                                    value_return_date = date;
-                                                  },
-                                                ),
+                            Padding(padding: EdgeInsets.all(20)),
+                            Text('Select Return Date'),
+                            DateTimeField(
+                              initialValue: value_return_date,
+                              format: format,
+                              resetIcon: Icon(
+                                  Icons.delete), //Set reset icon as trashcan
+                              onShowPicker: (context, currentValue) async {
+                                await showCupertinoModalPopup(
+                                    context: context,
+                                    builder: (context) {
+                                      return BottomSheet(
+                                        builder: (context) => Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              constraints: BoxConstraints(
+                                                  maxHeight: 200),
+                                              child: CupertinoDatePicker(
+                                                // minuteInterval:
+                                                //     60, //set unit for each minute change to 10 mins
+                                                onDateTimeChanged:
+                                                    (DateTime date) {
+                                                  value_return_date = date;
+                                                },
                                               ),
-                                              TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(context),
-                                                  child: Text('Ok')),
-                                            ],
-                                          ),
-                                          onClosing: () {},
-                                        );
-                                      });
-                                  setState(() {});
-                                  return value_return_date;
-                                },
-                              ),
-                            ]),
+                                            ),
+                                            TextButton(
+                                                onPressed: () =>
+                                                    Navigator.pop(context),
+                                                child: Text('Ok')),
+                                          ],
+                                        ),
+                                        onClosing: () {},
+                                      );
+                                    });
+                                setState(() {});
+                                return value_return_date;
+                              },
+                            ),
                           ]),
                         ]),
                       ]),
