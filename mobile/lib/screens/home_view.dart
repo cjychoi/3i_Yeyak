@@ -192,11 +192,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               onPressed: () => {scanQR()},
                             ),
                           ),
-                          Text('Select Dates', style: TextStyle(fontSize: 25)),
+                          Text('Select Date', style: TextStyle(fontSize: 25)),
                           Padding(padding: EdgeInsets.all(20)),
                           Text(
                               'Select Rent Date'), //rent date under search by device
                           DateTimeField(
+                            decoration: InputDecoration(
+                              enabledBorder: const OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Colors.blue, width: 2.0),
+                              ),
+                              border: OutlineInputBorder(),
+                              labelText: "Enter the date (yyyy-MM-dd HH-mm)",
+                            ),
                             initialValue:
                                 value_rent_dev, //initial value is set as current time
                             format: format,
@@ -239,6 +247,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           Text(
                               'Select Return Date'), //Return date under search by device
                           DateTimeField(
+                            decoration: InputDecoration(
+                              enabledBorder: const OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Colors.blue, width: 2.0),
+                              ),
+                              border: OutlineInputBorder(),
+                              labelText: "Enter the date (yyyy-MM-dd HH-mm)",
+                            ),
                             initialValue: value_return_dev,
                             format: format,
                             resetIcon:
@@ -284,6 +300,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             Padding(padding: EdgeInsets.all(15)),
                             Text('Select Rent Date'),
                             DateTimeField(
+                              decoration: InputDecoration(
+                                  enabledBorder: const OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color: Colors.blue, width: 2.0),
+                                  ),
+                                  border: OutlineInputBorder(),
+                                  labelText:
+                                      "Enter the date (yyyy-MM-dd HH-mm)"),
                               initialValue: value_rent_date,
                               format: format,
                               resetIcon:
@@ -321,9 +345,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 return value_rent_date;
                               },
                             ),
+                            SizedBox(height: 24),
                             Padding(padding: EdgeInsets.all(20)),
                             Text('Select Return Date'),
                             DateTimeField(
+                              decoration: InputDecoration(
+                                enabledBorder: const OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Colors.blue, width: 2.0),
+                                ),
+                                border: OutlineInputBorder(),
+                                labelText: "Enter the date (yyyy-MM-dd HH-mm)",
+                              ),
                               initialValue: value_return_date,
                               format: format,
                               resetIcon: Icon(
