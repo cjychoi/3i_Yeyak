@@ -18,10 +18,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   //탭바 앱바 밑 바디에 사용하기
   late List<bool> isSelected;
   late TabController _tabController;
-  final format = DateFormat("yyyy-MM-dd HH:mm");
-  DateTime? value;
-  DateTime initialDateTime = DateTime.now();
-  DateTime finalDateTime = DateTime.now();
+  final format = DateFormat("yyyy-MM-dd HH");
+  AutovalidateMode autoValidateMode = AutovalidateMode.onUserInteraction;
+  bool? showResetIcon = true;
+  DateTime? value = DateTime.now();
+ 
+
+
   @override
   void initState() {
     super.initState();
@@ -57,6 +60,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return Scaffold(
         resizeToAvoidBottomInset: false, //avoid pixel overloading
         appBar: AppBar(
+          iconTheme: IconThemeData(color: HexColor("0057FF")),
           leading: IconButton(
             icon: Icon(
               Icons.edit,
@@ -79,17 +83,43 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               style: new TextStyle(color: Colors.black, fontSize: 25.0),
             ),
           ),
-          actions: [
-            IconButton(
-              icon: Image.asset('images/menu.png',
-                  fit: BoxFit.cover, width: 30.0, height: 30.0),
-              onPressed: () => {},
-            ),
-          ],
+         
         ),
-/*
+        endDrawer: Drawer(
 
-          */
+  // Add a ListView to the drawer. This ensures the user can scroll
+  // through the options in the drawer if there isn't enough vertical
+  // space to fit everything.
+  child: ListView(
+    // Important: Remove any padding from the ListView.
+    padding: EdgeInsets.zero,
+    children: <Widget>[
+      DrawerHeader(
+        decoration: BoxDecoration(
+          color: Colors.blue,
+        ),
+        child: Text(
+              LoginPage.uName,
+              style: new TextStyle(color: HexColor("0057FF"), fontSize: 35.0),
+            ),
+      ),
+      ListTile(
+        title: Text('My Reservation', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
+        onTap: () {
+          // Update the state of the app.
+          // ...
+        },
+      ),
+      ListTile(
+        title: Text('Reservation Status (TBD) ', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
+        onTap: () {
+          // Update the state of the app.
+          // ...
+        },
+      ),
+    ],
+  ),
+),           
         body: new Container(
           child: ListView(
             children: <Widget>[
@@ -134,74 +164,29 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       ),
                     ),
                     Container(
-                      height: 300, //put tabbar below appbar
+                      height: 600, //put tabbar below appbar
                       child: TabBarView(
                           controller: _tabController,
                           children: <Widget>[
+                            Column(children: <Widget>[
+                            Text('Search Device', style: TextStyle(fontSize: 25)),
                             Container(
                               child: IconButton(
                                 icon: Image.asset('images/capture.png',
                                     fit: BoxFit.cover,
-                                    width: 150.0,
-                                    height: 150.0),
-                                onPressed: () => {scanQR()},
-                                //Navigator.of(context).popAndPushNamed('/home')},
+                                    width: 250.0,
+                                    height: 250.0),
+                                onPressed: () => {
+                                  scanQR()
+                                },
                               ),
                             ),
-                            Column(children: <Widget>[
-                              Text('Rent date & time: (${format.pattern})'),
-                              DateTimeField(
-                                format: format,
-                                onShowPicker: (context, currentValue) async {
-                                  final date = await showDatePicker(
-                                      context: context,
-                                      firstDate: DateTime(2021, 1, 1),
-                                      initialDate:
-                                          currentValue ?? DateTime.now(),
-                                      lastDate: DateTime(2022, 12, 31));
-                                  if (date != null) {
-                                    final time = await showTimePicker(
-                                      context: context,
-                                      initialTime: TimeOfDay.fromDateTime(
-                                          currentValue ?? DateTime.now()),
-                                    );
-                                    initialDateTime =
-                                        DateTimeField.combine(date, time);
-                                    return initialDateTime;
-                                  } else {
-                                    return currentValue;
-                                  }
-                                },
-                              ),
-                              Text('Return date & time: (${finalDateTime})'),
-                              DateTimeField(
-                                format: format,
-                                onShowPicker: (context, currentValue) async {
-                                  final date = await showDatePicker(
-                                      context: context,
-                                      firstDate: DateTime(2021, 1, 1),
-                                      initialDate:
-                                          currentValue ?? DateTime.now(),
-                                      lastDate: DateTime(2022, 12, 31));
-                                  if (date != null) {
-                                    final time = await showTimePicker(
-                                      context: context,
-                                      initialTime: TimeOfDay.fromDateTime(
-                                          currentValue ?? DateTime.now()),
-                                    );
-                                    finalDateTime =
-                                        DateTimeField.combine(date, time);
-                                    return finalDateTime;
-                                  } else {
-                                    return currentValue;
-                                  }
-                                },
-                              ),
-                              Column(children: <Widget>[
-                                Text('iOS style pickers (${format.pattern})'),
+                            Text('Select Date', style: TextStyle(fontSize: 25)),
+                            Text('Select rent date: (${format.pattern})'),
                                 DateTimeField(
                                   initialValue: value,
                                   format: format,
+                                  resetIcon: showResetIcon! ? Icon(Icons.delete) : null,
                                   onShowPicker: (context, currentValue) async {
                                     await showCupertinoModalPopup(
                                         context: context,
@@ -233,6 +218,122 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                     return value;
                                   },
                                 ),
+                                Text('select return date: (${format.pattern})'),
+                                DateTimeField(
+                                  initialValue: value,
+                                  format: format,
+                                  resetIcon: showResetIcon! ? Icon(Icons.delete) : null,
+                                  onShowPicker: (context, currentValue) async {
+                                    await showCupertinoModalPopup(
+                                        context: context,
+                                        builder: (context) {
+                                          return BottomSheet(
+                                            builder: (context) => Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Container(
+                                                  constraints: BoxConstraints(
+                                                      maxHeight: 200),
+                                                  child: CupertinoDatePicker(
+                                                    onDateTimeChanged:
+                                                        (DateTime date) {
+                                                      value = date;
+                                                    },
+                                                  ),
+                                                ),
+                                                TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(context),
+                                                    child: Text('Ok')),
+                                              ],
+                                            ),
+                                            onClosing: () {},
+                                          );
+                                        });
+                                    setState(() {});
+                                    return value;
+                                  },
+                                ),
+                            ]),
+                            Column(children: <Widget>[
+                              Column(children: <Widget>[
+                                Text('Select rent date: (${format.pattern})'),
+                                DateTimeField(
+                                  initialValue: value,
+                                  format: format,
+                                  resetIcon: showResetIcon! ? Icon(Icons.delete) : null,
+                                  onShowPicker: (context, currentValue) async {
+                                    await showCupertinoModalPopup(
+                                        context: context,
+                                        builder: (context) {
+                                          return BottomSheet(
+                                            builder: (context) => Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Container(
+                                                  constraints: BoxConstraints(
+                                                      maxHeight: 200),
+                                                  child: CupertinoDatePicker(
+                                                    onDateTimeChanged:
+                                                        (DateTime date) {
+                                                      value = date;
+                                                    },
+                                                  ),
+                                                ),
+                                                TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(context),
+                                                    child: Text('Ok')),
+                                              ],
+                                            ),
+                                            onClosing: () {},
+                                          );
+                                        });
+                                    setState(() {});
+                                    return value;
+                                  },
+                                ),
+
+                              Column(children: <Widget>[
+                                Text('select return date: (${format.pattern})'),
+                                DateTimeField(
+                                  initialValue: value,
+                                  format: format,
+                                  resetIcon: showResetIcon! ? Icon(Icons.delete) : null,
+                                  onShowPicker: (context, currentValue) async {
+                                    await showCupertinoModalPopup(
+                                        context: context,
+                                        builder: (context) {
+                                          return BottomSheet(
+                                            builder: (context) => Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Container(
+                                                  constraints: BoxConstraints(
+                                                      maxHeight: 200),
+                                                  child: CupertinoDatePicker(
+                                                    onDateTimeChanged:
+                                                        (DateTime date) {
+                                                      value = date;
+                                                    },
+                                                  ),
+                                                ),
+                                                TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(context),
+                                                    child: Text('Ok')),
+                                              ],
+                                            ),
+                                            onClosing: () {},
+                                          );
+                                        });
+                                    setState(() {});
+                                    return value;
+                                  },
+                                ),
+                               
+      
+    ]),
                               ]),
                             ]),
                           ]),
