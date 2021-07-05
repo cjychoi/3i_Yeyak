@@ -12,12 +12,9 @@ class LogIn extends StatefulWidget {
 class _LogInState extends State<LogIn> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: '3i Yeyak',
-        initialRoute: '/login',
-        routes: {
-          '/login': (BuildContext context) => LoginPage(),
-          '/home': (BuildContext context) => HomePage(),
-        });
+    return MaterialApp(title: '3i Yeyak', initialRoute: '/login', routes: {
+      '/login': (BuildContext context) => LoginPage(),
+      '/home': (BuildContext context) => HomePage(),
+    });
   }
 }
