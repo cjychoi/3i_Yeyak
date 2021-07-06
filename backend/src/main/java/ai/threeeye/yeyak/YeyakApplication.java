@@ -1,8 +1,15 @@
 package ai.threeeye.yeyak;
 
-import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.mongodb.config.EnableMongoAuditing;
 
-@ApplicationPath("/api")
-public class YeyakApplication extends Application {
+@SpringBootApplication
+@EnableMongoAuditing
+public class YeyakApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(YeyakApplication.class, args);
+	}
+
 }

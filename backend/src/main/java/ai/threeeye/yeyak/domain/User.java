@@ -1,38 +1,30 @@
 package ai.threeeye.yeyak.domain;
 
 import lombok.*;
-import org.bson.Document;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Data
 @Builder
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class User extends Document {
+@Document("users")
+public class User {
 
+    @Id
     private String _id;
+
     private String username;
-    private String team; // team need??
+    private String team;
 
+    @CreatedDate
     private LocalDateTime createdAt;
+    @LastModifiedDate
     private LocalDateTime updatedAt;
-
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof User)) {
-            return false;
-        }
-
-        User other = (User) obj;
-        return Objects.equals(other.username, this.username);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.username);
-    }
 
 }

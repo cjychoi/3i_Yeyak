@@ -1,21 +1,41 @@
 package ai.threeeye.yeyak.domain;
 
+import ai.threeeye.yeyak.common.define.device.OS;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
 @Data
+@Builder
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Document("devices")
 public class Device {
 
-    private final String device_id;
-    private final String manufacturer;
-    private final String model;
-    private final String color;
-    private final String os;
-    private final boolean availability;
-    private final String description;
+    @Id
+    private String _id;
 
-    private final LocalDateTime createdAt;
-    private final LocalDateTime updatedAt;
+    @Indexed(unique = true)
+    private String code;
+
+    private String manufacturer;
+    private String model;
+    private String color;
+    private OS os;
+    private boolean availability;
+    private String description;
+
+    @CreatedDate
+    @Builder.Default
+    private LocalDateTime createdAt = LocalDateTime.now();
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
+
 
 }

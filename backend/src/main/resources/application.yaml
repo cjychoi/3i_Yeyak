@@ -1,0 +1,23 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+    encoding:
+      enabled: true
+      charset: UTF-8
+      force: true
+
+spring:
+  application:
+    name: Yeyak
+  data:
+    mongodb:
+      uri: mongodb+srv://yeyak:sNZmld59mTveYmlV@cluster0.nzpgy.mongodb.net/yeyak?retryWrites=true&w=majority
+      database: yeyak
+      auto-index-creation: true
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+  mvc:
+    dispatch-options-request: true
+    throw-exception-if-no-handler-found: true
