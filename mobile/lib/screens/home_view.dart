@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   //탭바 앱바 밑 바디에 사용하기
   late TabController _tabController; //tabcontroller to use tab bar
   final format = DateFormat(
-      "yyyy-MM-dd HH-mm"); //the date format it will be displayed at date format field
+      "yyyy-MM-dd HH:mm"); //the date format it will be displayed at date format field
   bool? showResetIcon = true;
   DateTime? value_rent_dev;
   DateTime? value_return_dev;
@@ -31,8 +31,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     super.initState();
     _tabController =
         new TabController(length: 2, vsync: this); //tab bar has two views
-     DateTime initial = DateTime.now();
-      value = DateTime(initial.year, initial.month, initial.day, initial.hour, 30);
+    DateTime initial = DateTime.now();
+    value =
+        DateTime(initial.year, initial.month, initial.day, initial.hour, 30);
 
     //workaround to set initial minute to 0, and avoid min % (interval) == 0 error
   }
@@ -204,7 +205,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                     color: Colors.blue, width: 2.0),
                               ),
                               border: OutlineInputBorder(),
-                              labelText: "Enter the date (yyyy-MM-dd HH-mm)",
+                              labelText: "Enter the date (yyyy-MM-dd HH:mm)",
                             ),
                             // initialValue:
                             //     value, //value_rent_dev, //initial value is set as current time
@@ -222,8 +223,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                             constraints:
                                                 BoxConstraints(maxHeight: 200),
                                             child: CupertinoDatePicker(
-                                               initialDateTime: value,
-                                               minuteInterval: 30,
+                                              initialDateTime: value,
+                                              minuteInterval: 30,
                                               onDateTimeChanged:
                                                   (DateTime date) {
                                                 value_rent_dev = date;
@@ -254,7 +255,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                     color: Colors.blue, width: 2.0),
                               ),
                               border: OutlineInputBorder(),
-                              labelText: "Enter the date (yyyy-MM-dd HH-mm)",
+                              labelText: "Enter the date (yyyy-MM-dd HH:mm)",
                             ),
                             initialValue: value_return_dev,
                             format: format,
@@ -273,7 +274,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                 BoxConstraints(maxHeight: 200),
                                             child: CupertinoDatePicker(
                                               initialDateTime: value,
-                                               minuteInterval: 30,//set unit for each minute change to 30 mins
+                                              minuteInterval:
+                                                  30, //set unit for each minute change to 30 mins
                                               onDateTimeChanged:
                                                   (DateTime date) {
                                                 value_return_dev = date;
@@ -308,7 +310,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   ),
                                   border: OutlineInputBorder(),
                                   labelText:
-                                      "Enter the date (yyyy-MM-dd HH-mm)"),
+                                      "Enter the date (yyyy-MM-dd HH:mm)"),
                               initialValue: value_rent_date,
                               format: format,
                               resetIcon:
@@ -325,8 +327,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                               constraints: BoxConstraints(
                                                   maxHeight: 200),
                                               child: CupertinoDatePicker(
-                                               initialDateTime: value,
-                                               minuteInterval: 30,//set unit for each minute change to 10 mins
+                                                initialDateTime: value,
+                                                minuteInterval:
+                                                    30, //set unit for each minute change to 10 mins
                                                 onDateTimeChanged:
                                                     (DateTime date) {
                                                   value_rent_date = date;
@@ -356,7 +359,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                       color: Colors.blue, width: 2.0),
                                 ),
                                 border: OutlineInputBorder(),
-                                labelText: "Enter the date (yyyy-MM-dd HH-mm)",
+                                labelText: "Enter the date (yyyy-MM-dd HH:mm)",
                               ),
                               initialValue: value_return_date,
                               format: format,
@@ -375,7 +378,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                   maxHeight: 200),
                                               child: CupertinoDatePicker(
                                                 initialDateTime: value,
-                                               minuteInterval: 30, //set unit for each minute change to 10 mins
+                                                minuteInterval:
+                                                    30, //set unit for each minute change to 10 mins
                                                 onDateTimeChanged:
                                                     (DateTime date) {
                                                   value_return_date = date;
