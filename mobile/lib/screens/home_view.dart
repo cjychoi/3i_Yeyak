@@ -25,13 +25,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   DateTime? value_rent_date;
   DateTime? value_return_date;
   // late DateTime value;
+  static DateTime? value;
   @override
   void initState() {
     super.initState();
     _tabController =
         new TabController(length: 2, vsync: this); //tab bar has two views
-    // DateTime initial = DateTime.now();
-    // value = DateTime(initial.year, initial.month, initial.day, initial.hour, 0);
+     DateTime initial = DateTime.now();
+      value = DateTime(initial.year, initial.month, initial.day, initial.hour, 30);
 
     //workaround to set initial minute to 0, and avoid min % (interval) == 0 error
   }
@@ -205,8 +206,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               border: OutlineInputBorder(),
                               labelText: "Enter the date (yyyy-MM-dd HH-mm)",
                             ),
-                            initialValue:
-                                value_rent_dev, //initial value is set as current time
+                            // initialValue:
+                            //     value, //value_rent_dev, //initial value is set as current time
                             format: format,
                             resetIcon: Icon(Icons.delete),
                             onShowPicker: (context, currentValue) async {
@@ -221,8 +222,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                             constraints:
                                                 BoxConstraints(maxHeight: 200),
                                             child: CupertinoDatePicker(
-                                              // initialDateTime: value,
-                                              // minuteInterval: 30,
+                                               initialDateTime: value,
+                                               minuteInterval: 30,
                                               onDateTimeChanged:
                                                   (DateTime date) {
                                                 value_rent_dev = date;
@@ -271,8 +272,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                             constraints:
                                                 BoxConstraints(maxHeight: 200),
                                             child: CupertinoDatePicker(
-                                              // minuteInterval:
-                                              //     10, //set unit for each minute change to 30 mins
+                                              initialDateTime: value,
+                                               minuteInterval: 30,//set unit for each minute change to 30 mins
                                               onDateTimeChanged:
                                                   (DateTime date) {
                                                 value_return_dev = date;
@@ -324,8 +325,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                               constraints: BoxConstraints(
                                                   maxHeight: 200),
                                               child: CupertinoDatePicker(
-                                                // minuteInterval:
-                                                //     30, //set unit for each minute change to 10 mins
+                                               initialDateTime: value,
+                                               minuteInterval: 30,//set unit for each minute change to 10 mins
                                                 onDateTimeChanged:
                                                     (DateTime date) {
                                                   value_rent_date = date;
@@ -373,8 +374,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                               constraints: BoxConstraints(
                                                   maxHeight: 200),
                                               child: CupertinoDatePicker(
-                                                // minuteInterval:
-                                                //     60, //set unit for each minute change to 10 mins
+                                                initialDateTime: value,
+                                               minuteInterval: 30, //set unit for each minute change to 10 mins
                                                 onDateTimeChanged:
                                                     (DateTime date) {
                                                   value_return_date = date;
