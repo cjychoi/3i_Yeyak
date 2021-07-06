@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart'; //datetime picker api
 import 'package:flutter/material.dart';
-import 'package:mobile/screens/login_view.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:mobile/screens/login_view.dart'; //to get username from login_view
+import 'package:hexcolor/hexcolor.dart'; //hexcolor
 import 'package:flutter/services.dart'; //
 import 'package:intl/intl.dart'; //needed to use date format
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart'; //barcode scanner
@@ -20,22 +20,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final format = DateFormat(
       "yyyy-MM-dd HH:mm"); //the date format it will be displayed at date format field
   bool? showResetIcon = true;
-  DateTime? value_rent_dev;
-  DateTime? value_return_dev;
-  DateTime? value_rent_date;
-  DateTime? value_return_date;
-  // late DateTime value;
-  static DateTime? value;
+  DateTime? value_rent_dev; //search by device -> rent date
+  DateTime? value_return_dev; //search by device -> return date
+  DateTime? value_rent_date; //search by date -> rent date
+  DateTime? value_return_date; //search by date -> return date
+  DateTime?
+      value; //date time value that will be initial DateTime(default), needed to make minute interval 30 minutes
   @override
   void initState() {
     super.initState();
     _tabController =
         new TabController(length: 2, vsync: this); //tab bar has two views
     DateTime initial = DateTime.now();
-    value =
-        DateTime(initial.year, initial.month, initial.day, initial.hour, 30);
-
-    //workaround to set initial minute to 0, and avoid min % (interval) == 0 error
+    value = DateTime(initial.year, initial.month, initial.day, initial.hour,
+        30); //set default minute value as 30, so that minute interval will not have any conflits
   }
 
   Future<void> scanQR() async {
@@ -82,13 +80,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   '/login') //when pressed, redirect to login page
             },
           ),
-
           backgroundColor: Colors.white, // App bar 배색
-          centerTitle: false,
+          centerTitle: false, //Make title(user name) to be able to be shifted
           titleSpacing: 0.0,
           title: Transform(
             // you can forcefully translate values left side using Transform
-            transform: Matrix4.translationValues(-15.0, 0.0, 0.0),
+            transform: Matrix4.translationValues(
+                -15.0, 0.0, 0.0), //make user name shifted towards left
             child: new Text(
               LoginPage.uName, //Display user name at the left top corner
               style: new TextStyle(
@@ -99,13 +97,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         endDrawer: Drawer(
           //use endDrawer to display drawer at right top corner
           child: ListView(
-            // Important: Remove any padding from the ListView.
+            // Important: Remove any padding from the ListPage.
             padding: EdgeInsets.zero, //No paddings
             children: <Widget>[
               DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                ),
+                // decoration: BoxDecoration(
+                //   color: Colors.blue,
+                // ),
                 child: Text(
                   LoginPage.uName,
                   style: new TextStyle(
@@ -118,7 +116,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 title: Text('My Reservation',
                     style: new TextStyle(color: Colors.black, fontSize: 20.0)),
                 onTap: () {
-                  //redirect to the device listview
+                  Navigator.of(context).popAndPushNamed('/reservation');
+                  //redirect to the device ListPage
                 },
               ),
               ListTile(
@@ -144,6 +143,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       color: HexColor("0057FF"), //themecolor
                       child: TabBar(
                         //tabbar
+
                         tabs: [
                           Container(
                             width: 70.0, //width of first tab
@@ -182,20 +182,22 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       child: TabBarView(controller: _tabController, children: <
                           Widget>[
                         Column(children: <Widget>[
-                          Padding(padding: EdgeInsets.all(15)),
-                          Text('Search Devices',
+                          Padding(padding: EdgeInsets.all(10)),
+                          Text('Search Devices', //search by device subtitle
                               style: TextStyle(fontSize: 25)),
                           Container(
                             child: IconButton(
-                              iconSize: 200,
+                              iconSize: 150, //Size of QR scanning button
                               icon: Image.asset(
                                 'images/capture.png', //Camera image that proeceeds to QR scanning screen
                               ),
                               onPressed: () => {scanQR()},
                             ),
                           ),
-                          Text('Select Date', style: TextStyle(fontSize: 25)),
-                          Padding(padding: EdgeInsets.all(20)),
+                          Text('Select Date',
+                              style: TextStyle(
+                                  fontSize: 25)), //select Date subtitle
+                          Padding(padding: EdgeInsets.only(bottom: 10)),
                           Text(
                               'Select Rent Date'), //rent date under search by device
                           DateTimeField(
@@ -205,12 +207,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                     color: Colors.blue, width: 2.0),
                               ),
                               border: OutlineInputBorder(),
-                              labelText: "Enter the date (yyyy-MM-dd HH:mm)",
+                              labelText: "Enter the date:",
                             ),
                             // initialValue:
                             //     value, //value_rent_dev, //initial value is set as current time
                             format: format,
-                            resetIcon: Icon(Icons.delete),
+                            resetIcon: Icon(Icons
+                                .delete), //trashcan icon as default delete button
                             onShowPicker: (context, currentValue) async {
                               await showCupertinoModalPopup(
                                   context: context,
@@ -255,7 +258,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                     color: Colors.blue, width: 2.0),
                               ),
                               border: OutlineInputBorder(),
-                              labelText: "Enter the date (yyyy-MM-dd HH:mm)",
+                              labelText: "Enter the date:",
                             ),
                             initialValue: value_return_dev,
                             format: format,
@@ -295,6 +298,25 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               return value_return_dev;
                             },
                           ),
+                          Padding(padding: EdgeInsets.only(bottom: 40)),
+                          TextButton(
+                            child: Text('Reserve',
+                                style: TextStyle(
+                                  fontSize: 25,
+                                )),
+                            style: TextButton.styleFrom(
+                              backgroundColor: Colors.blue,
+                              //     HexColor("0057FF"), //color of button
+                              primary: Colors.white, //color of text
+                              onSurface: Colors.grey, //color when disabled
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(25))),
+                            ),
+                            onPressed: () {
+                              print('Reserve button pressed');
+                            },
+                          ),
                         ]),
                         Column(children: <Widget>[
                           Column(children: <Widget>[
@@ -309,8 +331,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                         color: Colors.blue, width: 2.0),
                                   ),
                                   border: OutlineInputBorder(),
-                                  labelText:
-                                      "Enter the date (yyyy-MM-dd HH:mm)"),
+                                  labelText: "Enter the date:"),
                               initialValue: value_rent_date,
                               format: format,
                               resetIcon:
@@ -359,7 +380,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                       color: Colors.blue, width: 2.0),
                                 ),
                                 border: OutlineInputBorder(),
-                                labelText: "Enter the date (yyyy-MM-dd HH:mm)",
+                                labelText: "Enter the date:",
                               ),
                               initialValue: value_return_date,
                               format: format,
@@ -397,6 +418,25 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                     });
                                 setState(() {});
                                 return value_return_date;
+                              },
+                            ),
+                            Padding(padding: EdgeInsets.only(bottom: 40)),
+                            TextButton(
+                              child: Text('Reserve',
+                                  style: TextStyle(
+                                    fontSize: 25,
+                                  )),
+                              style: TextButton.styleFrom(
+                                backgroundColor: Colors.blue,
+                                //HexColor("0057FF"), //color of button
+                                primary: Colors.white, //color of text
+                                onSurface: Colors.grey, //color when disabled
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(25))),
+                              ),
+                              onPressed: () {
+                                print('Reserve button pressed');
                               },
                             ),
                           ]),
