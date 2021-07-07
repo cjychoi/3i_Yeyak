@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/screens/login_view.dart';
 import 'package:mobile/screens/home_view.dart';
+import 'package:mobile/screens/my_reservation_view.dart';
 import 'package:mobile/screens/reservation_list_view.dart';
 
 void main() => runApp(LogIn());
@@ -17,6 +18,7 @@ class _LogInState extends State<LogIn> {
       '/login': (BuildContext context) => LoginPage(),
       '/home': (BuildContext context) => HomePage(),
       '/reservation': (BuildContext context) => ListPage(),
+      '/myreservation': (BuildContext context) => MyPage(),
     });
   }
 }

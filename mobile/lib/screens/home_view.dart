@@ -116,7 +116,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 title: Text('My Reservation',
                     style: new TextStyle(color: Colors.black, fontSize: 20.0)),
                 onTap: () {
-                  Navigator.of(context).popAndPushNamed('/reservation');
+                  Navigator.of(context).popAndPushNamed('/myreservation');
                   //redirect to the device ListPage
                 },
               ),
@@ -124,6 +124,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 title: Text('Reservation Status (TBD) ',
                     style: new TextStyle(color: Colors.black, fontSize: 20.0)),
                 onTap: () {
+                  Navigator.of(context).popAndPushNamed('/reservation');
                   //display general reservation status of the devices
                 },
               ),
