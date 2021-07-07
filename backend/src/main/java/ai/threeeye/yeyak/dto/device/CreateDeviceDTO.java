@@ -21,7 +21,7 @@ public class CreateDeviceDTO {
     private String model;
     @NotEmpty(message = "Color may not be empty")
     private String color;
-    @NotNull(message = "Os may not be null")
+    @NotNull(message = "OS may not be null")
     private OS os;
     @NotNull(message = "Availability may not be null")
     private Boolean availability;
