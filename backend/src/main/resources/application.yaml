@@ -15,6 +15,9 @@ spring:
       uri: mongodb+srv://yeyak:sNZmld59mTveYmlV@cluster0.nzpgy.mongodb.net/yeyak?retryWrites=true&w=majority
       database: yeyak
       auto-index-creation: true
+  devtools:
+    livereload:
+      enabled: true
   jackson:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false

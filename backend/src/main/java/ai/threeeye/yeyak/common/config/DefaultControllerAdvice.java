@@ -5,6 +5,7 @@ import ai.threeeye.yeyak.common.exception.ApiException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingRequestHeaderException;
@@ -125,7 +126,14 @@ public class DefaultControllerAdvice {
         {
             returnMap.put("result", 0);
             returnMap.put("resultCode", ApiErrorCode.INVALID_PARAMETER.getCode());
-            returnMap.put("resultMsg", e.getMessage());
+            returnMap.put("resultMsg", ApiErrorCode.INVALID_PARAMETER.getCode());
+            Map<String, Object> errors = new HashMap<>();
+            e.getBindingResult().getAllErrors().forEach(error -> {
+                String fieldName = ((FieldError) error).getField();
+                String message = error.getDefaultMessage();
+                errors.put(fieldName, message);
+            });
+            returnMap.put("validations", errors);
         }
 
         return returnMap;
