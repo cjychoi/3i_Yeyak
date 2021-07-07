@@ -87,7 +87,8 @@ class LoginPage extends StatelessWidget {
                     // 버튼 press시 home_view로 전환
                     Navigator.of(context).popAndPushNamed('/home');
                   },
-                  child: Text('Login', style: TextStyle(fontSize: 20))),
+                  child: Text('      Login      ',
+                      style: TextStyle(fontSize: 20))),
             ],
           ),
         ],
