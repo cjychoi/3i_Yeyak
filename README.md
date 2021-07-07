@@ -13,7 +13,7 @@ This project is to implement a 'Device Reservation System' for 3i company. Curre
 **Lang**: Dart   
 
 ### 2-2. Backend (Server, DB)
-**Management**: Kubernetes
+**Management**: Kubernetes   
 **Lang**: Java   
 **Framework**: Spring Boot   
 **Build Tool**: Maven  
