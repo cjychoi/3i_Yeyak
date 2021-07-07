@@ -17,7 +17,7 @@ This project is to implement a 'Device Reservation System' for 3i company. Curre
 **Lang**: Java   
 **Framework**: Spring Boot   
 **Build Tool**: Maven  
-**DB**: MongoDB
+**DB**: MongoDB   
 **Server**: Amazon EKS
 
 ## Naming Convention
