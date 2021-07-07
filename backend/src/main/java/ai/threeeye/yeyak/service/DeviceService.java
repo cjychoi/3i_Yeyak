@@ -13,4 +13,6 @@ public interface DeviceService {
 
     Device load(String id) throws Exception;
 
+    Boolean delete(String id) throws Exception;
+
 }

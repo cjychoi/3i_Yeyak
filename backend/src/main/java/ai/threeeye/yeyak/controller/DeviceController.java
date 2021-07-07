@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,7 +45,7 @@ public class DeviceController {
     }
 
     @PostMapping
-    public Map<String, Object> create(@RequestBody CreateDeviceDTO payload, HttpServletResponse res) {
+    public Map<String, Object> create(@Valid @RequestBody CreateDeviceDTO payload, HttpServletResponse res) {
         Map<String, Object> returnMap = new HashMap<>();
 
         try {
@@ -73,6 +74,30 @@ public class DeviceController {
         try {
             returnMap.put("result", 1);
             returnMap.put("data", deviceService.load(id));
+        } catch (ApiException e) {
+            res.setStatus(e.getStatus());
+            returnMap.put("result", 0);
+            returnMap.put("resultCode", e.getCode());
+            returnMap.put("resultMsg", e.getMsg());
+        } catch (Exception e) {
+            log.error("", e);
+            res.setStatus(ApiErrorCode.UNKNOWN.getStatus());
+            returnMap.put("result", 0);
+            returnMap.put("resultCode", ApiErrorCode.UNKNOWN.getCode());
+            returnMap.put("resultMsg", ApiErrorCode.UNKNOWN.getMsg());
+        }
+
+        return returnMap;
+    }
+
+    @DeleteMapping("/{id}")
+    public Map<String, Object> delete(@PathVariable String id, HttpServletResponse res) {
+        Map<String, Object> returnMap = new HashMap<>();
+
+        try {
+            res.setStatus(202);
+            returnMap.put("result", 1);
+            returnMap.put("data", deviceService.delete(id));
         } catch (ApiException e) {
             res.setStatus(e.getStatus());
             returnMap.put("result", 0);

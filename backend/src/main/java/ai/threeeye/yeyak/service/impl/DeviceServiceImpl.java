@@ -66,4 +66,16 @@ public class DeviceServiceImpl implements DeviceService {
         return maybeDevice.get();
     }
 
+    @Override
+    public Boolean delete(String id) throws Exception {
+        Optional<Device> maybeDevice = deviceRepository.findById(id);
+        if (maybeDevice.isEmpty()) {
+            throw new ApiException(ApiErrorCode.DEVICE_NOT_FOUND);
+        }
+
+        deviceRepository.deleteById(id);
+
+        return true;
+    }
+
 }
