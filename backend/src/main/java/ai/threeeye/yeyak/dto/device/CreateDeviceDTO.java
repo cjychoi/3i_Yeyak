@@ -4,6 +4,7 @@ import ai.threeeye.yeyak.common.define.device.OS;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Builder
@@ -20,9 +21,9 @@ public class CreateDeviceDTO {
     private String model;
     @NotEmpty(message = "Please type color")
     private String color;
-    @NotEmpty(message = "Please type os")
+    @NotNull(message = "Please type os")
     private OS os;
-    @NotEmpty(message = "Please type availability")
+    @NotNull(message = "Please type availability")
     private Boolean availability;
 
     private String description;
