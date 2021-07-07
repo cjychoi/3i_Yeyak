@@ -13,17 +13,17 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class CreateDeviceDTO {
 
-    @NotEmpty(message = "Please type manufacturer")
+    @NotEmpty(message = "Manufacturer may not be empty")
     private String manufacturer;
-    @NotEmpty(message = "Please type code")
+    @NotEmpty(message = "Code may not be empty")
     private String code;
-    @NotEmpty(message = "Please type model")
+    @NotEmpty(message = "Model may not be empty")
     private String model;
-    @NotEmpty(message = "Please type color")
+    @NotEmpty(message = "Color may not be empty")
     private String color;
-    @NotNull(message = "Please type os")
+    @NotNull(message = "Os may not be null")
     private OS os;
-    @NotNull(message = "Please type availability")
+    @NotNull(message = "Availability may not be null")
     private Boolean availability;
 
     private String description;
