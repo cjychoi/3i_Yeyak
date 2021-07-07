@@ -299,24 +299,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             },
                           ),
                           Padding(padding: EdgeInsets.only(bottom: 40)),
-                          TextButton(
-                            child: Text('Reserve',
-                                style: TextStyle(
-                                  fontSize: 25,
-                                )),
-                            style: TextButton.styleFrom(
-                              backgroundColor: Colors.blue,
-                              //     HexColor("0057FF"), //color of button
-                              primary: Colors.white, //color of text
-                              onSurface: Colors.grey, //color when disabled
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(25))),
-                            ),
+                          FloatingActionButton.extended(
+                            backgroundColor: Colors.blue,
+                            foregroundColor: Colors.white,
                             onPressed: () {
-                              print('Reserve button pressed');
+                              print('Reserve button has been pressed');
                             },
-                          ),
+                            icon: Icon(Icons.check),
+                            label:
+                                Text('Reserve', style: TextStyle(fontSize: 20)),
+                          )
                         ]),
                         Column(children: <Widget>[
                           Column(children: <Widget>[
@@ -421,24 +413,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               },
                             ),
                             Padding(padding: EdgeInsets.only(bottom: 40)),
-                            TextButton(
-                              child: Text('Reserve',
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                  )),
-                              style: TextButton.styleFrom(
-                                backgroundColor: Colors.blue,
-                                //HexColor("0057FF"), //color of button
-                                primary: Colors.white, //color of text
-                                onSurface: Colors.grey, //color when disabled
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(25))),
-                              ),
+                            FloatingActionButton.extended(
+                              backgroundColor: Colors.blue,
+                              foregroundColor: Colors.white,
                               onPressed: () {
-                                print('Reserve button pressed');
+                                print('Reserve button has been pressed');
                               },
-                            ),
+                              icon: Icon(Icons.check),
+                              label: Text('Reserve',
+                                  style: TextStyle(fontSize: 20)),
+                            )
                           ]),
                         ]),
                       ]),
