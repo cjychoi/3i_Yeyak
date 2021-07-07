@@ -67,7 +67,7 @@ public class DeviceController {
         return returnMap;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}") // /devices/{id} GET
     public Map<String, Object> load(@PathVariable String id, HttpServletResponse res) {
         Map<String, Object> returnMap = new HashMap<>();
 

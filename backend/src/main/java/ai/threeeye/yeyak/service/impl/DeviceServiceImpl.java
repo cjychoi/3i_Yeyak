@@ -15,7 +15,6 @@ import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service("DeviceService")
 @RequiredArgsConstructor
@@ -41,7 +40,6 @@ public class DeviceServiceImpl implements DeviceService {
         }
 
         Device device = Device.builder()
-                ._id(UUID.randomUUID().toString())
                 .manufacturer(payload.getManufacturer())
                 .code(payload.getCode())
                 .model(payload.getModel())

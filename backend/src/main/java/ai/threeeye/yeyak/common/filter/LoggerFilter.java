@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.*;
@@ -14,6 +16,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 @Slf4j
+@Order(2)
+@Component
 public class LoggerFilter implements Filter {
 
     private ObjectMapper om = new ObjectMapper();
@@ -25,10 +29,10 @@ public class LoggerFilter implements Filter {
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
             throws IOException, ServletException {
-        if ("/sbp_api/api/infos/privacy".equals(((HttpServletRequest) req).getRequestURI())) {
-            chain.doFilter(req, res);
-            return;
-        }
+//        if ("".equals(((HttpServletRequest) req).getRequestURI())) {
+//            chain.doFilter(req, res);
+//            return;
+//        }
         HttpServletResponse resp = (HttpServletResponse) res;
         ResponseWrapper response = new ResponseWrapper(resp);
         response.setHeader("Content-Security-Policy", "script-src 'self'");

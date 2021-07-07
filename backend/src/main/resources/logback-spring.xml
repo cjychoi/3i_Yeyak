@@ -95,20 +95,6 @@
         </filter>
     </appender>
 
-    <appender name="PUSH" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${FILE_PATH}/push.log</file>
-        <encoder>
-            <pattern>${pattern}</pattern>
-        </encoder>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${FILE_PATH}/%d{yyyy-MM-dd}/push.log</fileNamePattern>
-            <maxHistory>7</maxHistory>
-        </rollingPolicy>
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
-        </filter>
-    </appender>
-
     <logger name="jdbc" level="OFF"/>
 
     <logger name="jdbc.sqlonly" level="INFO" additivity="false">

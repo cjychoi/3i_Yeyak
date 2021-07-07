@@ -1,16 +1,18 @@
 package ai.threeeye.yeyak.common.config;
 
 import ai.threeeye.yeyak.common.filter.LoggerFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcRegistrations;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
+@RequiredArgsConstructor
 public class WebMvcConfig implements WebMvcConfigurer, WebMvcRegistrations {
+
+    private final LoggerFilter logger;
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
@@ -27,13 +29,6 @@ public class WebMvcConfig implements WebMvcConfigurer, WebMvcRegistrations {
                 )
                 .allowCredentials(false)
                 .maxAge(86400);
-    }
-
-    @Bean
-    public FilterRegistrationBean<LoggerFilter> loggerFilter() {
-        FilterRegistrationBean<LoggerFilter> bean = new FilterRegistrationBean<>(new LoggerFilter());
-        bean.addUrlPatterns("/api/*");
-        return bean;
     }
 
 }

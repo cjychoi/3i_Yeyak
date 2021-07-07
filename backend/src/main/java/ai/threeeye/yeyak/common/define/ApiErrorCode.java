@@ -18,6 +18,12 @@ public enum ApiErrorCode {
 
     DEVICE_ALREADY_EXISTS(400, "api.error.device_already_exists", "이미 존재하는 디바이스입니다."),
 
+    // User
+    USER_NOT_FOUND(404, "api.error.user_not_found", "존재하지 않는 유저입니다."),
+
+    // Reservation
+    ALREADY_RESERVED_DEVICE(400, "api.error.already_reserved_device", "이미 예약된 디바이스 입니다."),
+
     //Common
     NOT_AVAILABLE(400, "api.error.not_available", "불가능 한 동작입니다."),
 
