@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile/globals.dart' as globals;
 import 'package:mobile/screens/login_view.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/services.dart'; //
@@ -90,7 +91,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             // you can forcefully translate values left side using Transform
             transform: Matrix4.translationValues(-15.0, 0.0, 0.0),
             child: new Text(
-              LoginPage.uName, //Display user name at the left top corner
+              globals.user!.username, //Display user name at the left top corner
               style: new TextStyle(
                   color: Colors.black, fontSize: 25.0), //style of username
             ),
@@ -107,7 +108,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   color: Colors.blue,
                 ),
                 child: Text(
-                  LoginPage.uName,
+                  globals.user!.username,
                   style: new TextStyle(
                       color: HexColor("0057FF"),
                       fontSize:
