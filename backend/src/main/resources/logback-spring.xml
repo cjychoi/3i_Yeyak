@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="FILE_PATH" value="./logs"/>
+
+    <property name="pattern"
+              value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n%wEx"/>
+
+    <conversionRule conversionWord="clr"
+                    converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+    <conversionRule conversionWord="wex"
+                    converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
+    <conversionRule conversionWord="wEx"
+                    converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${pattern}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator>
+                <expression>return message.contains("===NOT_SQL_LOG===");</expression>
+            </evaluator>
+            <OnMismatch>NEUTRAL</OnMismatch>
+            <OnMatch>DENY</OnMatch>
+        </filter>
+    </appender>
+
+    <!--    ▶ %-5level [%d{ISO8601}] [%thread] %logger{0}.%method:%line - %msg %n-->
+
+    <appender name="ROOT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${FILE_PATH}/ROOT.log</file>
+        <encoder>
+            <pattern>${pattern}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${FILE_PATH}/%d{yyyy-MM-dd}/ROOT.log</fileNamePattern>
+            <maxHistory>3</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator>
+                <expression>return message.contains("===NOT_SQL_LOG===");</expression>
+            </evaluator>
+            <OnMismatch>NEUTRAL</OnMismatch>
+            <OnMatch>DENY</OnMatch>
+        </filter>
+    </appender>
+
+    <appender name="ACCESS" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${FILE_PATH}/access.log</file>
+        <encoder>
+            <pattern>${pattern}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${FILE_PATH}/%d{yyyy-MM-dd}/access.log</fileNamePattern>
+            <maxHistory>14</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="ERR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${FILE_PATH}/error.log</file>
+        <encoder>
+            <pattern>${pattern}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+            <level>WARN</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${FILE_PATH}/%d{yyyy-MM-dd}/error.log</fileNamePattern>
+            <maxHistory>14</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="QUERY" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${FILE_PATH}/query.log</file>
+        <encoder>
+            <pattern>${pattern}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${FILE_PATH}/%d{yyyy-MM-dd}/query.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator>
+                <expression>return message.contains("===NOT_SQL_LOG===");</expression>
+            </evaluator>
+            <OnMismatch>NEUTRAL</OnMismatch>
+            <OnMatch>DENY</OnMatch>
+        </filter>
+    </appender>
+
+    <logger name="jdbc" level="OFF"/>
+
+    <logger name="jdbc.sqlonly" level="INFO" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="ROOT"/>
+        <appender-ref ref="QUERY"/>
+    </logger>
+
+    <!--    <logger name="jdbc.resultsettable" level="INFO" additivity="false">-->
+    <!--        <appender-ref ref="STDOUT"/>-->
+    <!--        <appender-ref ref="ROOT"/>-->
+    <!--        <appender-ref ref="QUERY"/>-->
+    <!--    </logger>-->
+
+    <logger name="ai.threeeye.yeyak.common.filter.LoggerFilter" level="INFO" additivity="false">
+        <appender-ref ref="ACCESS"/>
+        <appender-ref ref="ROOT"/>
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="ROOT"/>
+        <appender-ref ref="ERR_FILE"/>
+    </root>
+
+</configuration>

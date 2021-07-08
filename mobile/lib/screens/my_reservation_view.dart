@@ -1,7 +1,8 @@
 import 'package:mobile/screens/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:path/path.dart';
+//import 'package:path/path.dart';
+import 'package:http/http.dart';
 
 class MyPage extends StatefulWidget {
   @override
@@ -46,6 +47,22 @@ class MyPage extends StatefulWidget {
 //     });
 //   });
 // }
+
+// var client = http.Client();
+// try {
+//   var uriResponse = await client.post(Uri.parse('https://example.com/whatsit/create'),
+//       body: {'name': 'device', 'id' ''});
+//   print(await client.get(uriResponse.bodyFields['uri']));
+// } finally {
+//   client.close();
+// }
+// private String code;
+// private String manufacturer;
+// private String model;
+// private String color;
+// private OS os;
+// private boolean availability;
+// private String description;
 
 class _MyPageState extends State<MyPage> {
   @override

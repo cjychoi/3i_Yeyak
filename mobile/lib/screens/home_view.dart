@@ -26,6 +26,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   DateTime? value_return_date; //search by date -> return date
   DateTime?
       value; //date time value that will be initial DateTime(default), needed to make minute interval 30 minutes
+
   @override
   void initState() {
     super.initState();
@@ -144,7 +145,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       color: HexColor("0057FF"), //themecolor
                       child: TabBar(
                         //tabbar
-
                         tabs: [
                           Container(
                             width: 70.0, //width of first tab
@@ -210,8 +210,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               border: OutlineInputBorder(),
                               labelText: "Enter the date:",
                             ),
-                            // initialValue:
-                            //     value, //value_rent_dev, //initial value is set as current time
+                            initialValue:
+                                value_rent_dev, //initial value is set as current time
                             format: format,
                             resetIcon: Icon(Icons
                                 .delete), //trashcan icon as default delete button

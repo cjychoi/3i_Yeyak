@@ -33,6 +33,7 @@ dependencies:
   toggle_switch: ^1.2.0
   flutter_barcode_scanner: ^2.0.0
   datetime_picker_formfield: ^2.0.0
+  http: ^0.13.3
 
 dev_dependencies:
   flutter_test:
