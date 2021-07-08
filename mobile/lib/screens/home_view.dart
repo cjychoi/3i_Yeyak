@@ -76,7 +76,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               color: Colors.black, //Set edit button to black
             ),
             onPressed: () => {
-              //Navigator.pop(context)},
               Navigator.of(context).popAndPushNamed(
                   '/login') //when pressed, redirect to login page
             },
@@ -117,18 +116,27 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 title: Text('My Reservation',
                     style: new TextStyle(color: Colors.black, fontSize: 20.0)),
                 onTap: () {
-                  Navigator.of(context).popAndPushNamed('/myreservation');
+                  Navigator.of(context).pushNamed('/myreservation');
                   //redirect to the device ListPage
                 },
               ),
               ListTile(
-                title: Text('Reservation Status (TBD) ',
+                title: Text('Reservation Status',
                     style: new TextStyle(color: Colors.black, fontSize: 20.0)),
                 onTap: () {
-                  Navigator.of(context).popAndPushNamed('/reservation');
+                  Navigator.of(context).pushNamed('/reservation');
                   //display general reservation status of the devices
                 },
               ),
+              Padding(padding: EdgeInsets.only(bottom: 60)),
+              ListTile(
+                title:
+                    Text('Credit', style: new TextStyle(color: Colors.white)),
+                onLongPress: () {
+                  Navigator.of(context).popAndPushNamed('/credits');
+                },
+                //display general reservation status of the devices
+              )
             ],
           ),
         ),
@@ -186,15 +194,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           Padding(padding: EdgeInsets.all(10)),
                           Text('Search Devices', //search by device subtitle
                               style: TextStyle(fontSize: 25)),
-                          Container(
-                            child: IconButton(
-                              iconSize: 150, //Size of QR scanning button
-                              icon: Image.asset(
-                                'images/capture.png', //Camera image that proeceeds to QR scanning screen
+                          Column(children: <Widget>[
+                            Container(
+                                //serach bar
+                                ),
+                            Container(
+                              child: IconButton(
+                                iconSize: 50, //Size of QR scanning button
+                                icon: Image.asset(
+                                  'images/capture.png', //Camera image that proeceeds to QR scanning screen
+                                ),
+                                onPressed: () => {scanQR()},
                               ),
-                              onPressed: () => {scanQR()},
-                            ),
-                          ),
+                            )
+                          ]),
                           Text('Select Date',
                               style: TextStyle(
                                   fontSize: 25)), //select Date subtitle
