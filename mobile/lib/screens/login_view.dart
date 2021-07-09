@@ -1,20 +1,56 @@
-import 'package:flutter/material.dart';
+import 'dart:developer';
 
-class LoginPage extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:mobile/viewModel/LoginViewModel.dart';
+import 'package:mobile/globals.dart' as globals;
+
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _usernameController = TextEditingController(); // username 저장용
-  static String uName = "userName";
+  final LoginViewModel viewModel = LoginViewModel();
+  bool _isLoading = false;
+
+  check() {
+    if (_formKey.currentState == null) return;
+    if (_formKey.currentState!.validate()) {
+      // 검사
+      setState(() {
+        _isLoading = true;
+      });
+      viewModel
+          .login(_usernameController.text)
+          .then((value) => {
+                setState(() {
+                  _isLoading = false;
+                }),
+                globals.user = value,
+                Navigator.of(context).popAndPushNamed('/home') // 이동
+              })
+          .catchError((err) {
+        Fluttertoast.showToast(
+          msg: err.message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+        );
+      }).whenComplete(() {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size; // 앱 구동 맥락에서의 사이즈 정의
 
     return Scaffold(
-      /*
-      appBar: AppBar(
-        title: Text('3i Yeyak'), // 상단 App Bar 텍스트
-        backgroundColor: Colors.indigo, // 상단 App Bar 색상
-      ),
-      */
       body: Stack(
         alignment: Alignment.center, // 세로 가운데 정렬
         children: <Widget>[
@@ -49,11 +85,6 @@ class LoginPage extends StatelessWidget {
                               }
                               return null;
                             },
-                            // 텍스트폼필드에 스타일 적용
-                            onChanged: (String text) {
-                              //텍스트가 입력될때마다 전역 변수로 저장
-                              uName = text;
-                            },
                             decoration: InputDecoration(
                                 // icon: Icon(Icons.account_circle), // 계정 아이콘
                                 enabledBorder: const OutlineInputBorder(
@@ -63,8 +94,12 @@ class LoginPage extends StatelessWidget {
                                 border: OutlineInputBorder(), // 텍스트필드의 외각선
                                 hintText:
                                     'Enter Username', // 텍스트필드상에 출력되는 텍스트. 실제 값이 되진 않음
-                                labelText:
-                                    "Username"), // 텍스트필드의 상단에 출력되는 레이블 텍스트
+                                labelText: "Username"),
+                            autofocus: true, // 자동으로 포커스 맞춰지게
+                            textInputAction: TextInputAction.go,
+                            onFieldSubmitted: (value) {
+                              check();
+                            }, // 텍스트필드의 상단에 출력되는 레이블 텍스트
                           ),
                         ],
                       )),
@@ -85,9 +120,10 @@ class LoginPage extends StatelessWidget {
                               side: BorderSide(color: Colors.white)))),
                   onPressed: () {
                     // 버튼 press시 home_view로 전환
-                    Navigator.of(context).popAndPushNamed('/home');
+                    check();
                   },
-                  child: Text('Login', style: TextStyle(fontSize: 20))),
+                  child: Text(viewModel.isLoading ? 'Logging in...' : 'Login',
+                      style: TextStyle(fontSize: 20))),
             ],
           ),
         ],
