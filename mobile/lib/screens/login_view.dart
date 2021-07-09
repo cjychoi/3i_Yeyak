@@ -30,12 +30,6 @@ class _LoginPageState extends State<LoginPage> {
     final Size size = MediaQuery.of(context).size; // 앱 구동 맥락에서의 사이즈 정의
 
     return Scaffold(
-      /*
-      appBar: AppBar(
-        title: Text('3i Yeyak'), // 상단 App Bar 텍스트
-        backgroundColor: Colors.indigo, // 상단 App Bar 색상
-      ),
-      */
       body: Stack(
         alignment: Alignment.center, // 세로 가운데 정렬
         children: <Widget>[
@@ -107,7 +101,8 @@ class _LoginPageState extends State<LoginPage> {
                     // 버튼 press시 home_view로 전환
                     check();
                   },
-                  child: Text('Login', style: TextStyle(fontSize: 20))),
+                  child: Text('      Login      ',
+                      style: TextStyle(fontSize: 20))),
             ],
           ),
         ],
