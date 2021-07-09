@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mobile/viewModel/LoginViewModel.dart';
 import 'package:mobile/globals.dart' as globals;
 
@@ -13,15 +14,35 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _usernameController = TextEditingController(); // username 저장용
   final LoginViewModel viewModel = LoginViewModel();
+  bool _isLoading = false;
 
   check() {
     if (_formKey.currentState == null) return;
     if (_formKey.currentState!.validate()) {
       // 검사
-      viewModel.login(_usernameController.text).then((value) => {
-            globals.user = value,
-            Navigator.of(context).popAndPushNamed('/home') // 이동
-          });
+      setState(() {
+        _isLoading = true;
+      });
+      viewModel
+          .login(_usernameController.text)
+          .then((value) => {
+                setState(() {
+                  _isLoading = false;
+                }),
+                globals.user = value,
+                Navigator.of(context).popAndPushNamed('/home') // 이동
+              })
+          .catchError((err) {
+        Fluttertoast.showToast(
+          msg: err.message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+        );
+      }).whenComplete(() {
+        setState(() {
+          _isLoading = false;
+        });
+      });
     }
   }
 
@@ -101,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                     // 버튼 press시 home_view로 전환
                     check();
                   },
-                  child: Text('      Login      ',
+                  child: Text(viewModel.isLoading ? 'Logging in...' : 'Login',
                       style: TextStyle(fontSize: 20))),
             ],
           ),
