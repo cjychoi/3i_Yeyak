@@ -12,11 +12,13 @@ This project is to implement a 'Device Reservation System' for 3i company. Curre
 **Tool**: Flutter   
 **Lang**: Dart   
 
-### 2-2. Backend (Server)
+### 2-2. Backend (Server, DB)
+**Management**: Kubernetes   
 **Lang**: Java   
-**Framework**: Kubernetes, Quarkus   
-**Build Tool**: Maven   
-
+**Framework**: Spring Boot   
+**Build Tool**: Maven  
+**DB**: MongoDB   
+**Server**: Amazon EKS
 
 ## Naming Convention
 ### Branches

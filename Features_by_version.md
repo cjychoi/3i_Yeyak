@@ -12,6 +12,7 @@
 - Search bar
 - Push alert for return
 - Google Login
+- Add device in app
 
 ### UI
 - Dark mode
