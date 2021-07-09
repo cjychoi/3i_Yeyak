@@ -7,13 +7,7 @@ class MyPage extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'My Reservations',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: DataTableDemo(),
-    );
+    return DataTableDemo();
   }
 }
 
