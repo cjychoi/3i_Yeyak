@@ -12,7 +12,7 @@ public class ApiException extends Exception {
 
     public ApiException(ApiErrorCode code) {
         super(code.getMsg());
-        this.status = 400;
+        this.status = code.getStatus();
         this.code = code;
         this.msg = code.getMsg();
     }
@@ -26,7 +26,7 @@ public class ApiException extends Exception {
 
     public ApiException(ApiErrorCode code, String msg) {
         super(msg);
-        this.status = 4005;
+        this.status = code.getStatus();
         this.code = code;
         this.msg = msg;
     }
