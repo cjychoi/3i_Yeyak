@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:mobile/screens/login_view.dart';
+import 'package:mobile/globals.dart' as globals;
 
 class ListPage extends StatefulWidget {
   @override
@@ -23,7 +23,7 @@ class _ListPageState extends State<ListPage> {
             //implement backbutton in
             color: Colors.white,
           ),
-          title: Text(LoginPage.uName),
+          title: Text(globals.user!.username),
           centerTitle: true,
         ),
         body: DataTable(
