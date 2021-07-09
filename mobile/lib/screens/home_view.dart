@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart'; //datetime picker api
 import 'package:flutter/material.dart';
-import 'package:mobile/screens/login_view.dart'; //to get username from login_view
-import 'package:hexcolor/hexcolor.dart'; //hexcolor
+import 'package:mobile/globals.dart' as globals;
+import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/services.dart'; //
 import 'package:intl/intl.dart'; //needed to use date format
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart'; //barcode scanner
@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             transform: Matrix4.translationValues(
                 -15.0, 0.0, 0.0), //make user name shifted towards left
             child: new Text(
-              LoginPage.uName, //Display user name at the left top corner
+              globals.user!.username, //Display user name at the left top corner
               style: new TextStyle(
                   color: Colors.black, fontSize: 25.0), //style of username
             ),
@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 //   color: Colors.blue,
                 // ),
                 child: Text(
-                  LoginPage.uName,
+                  globals.user!.username,
                   style: new TextStyle(
                       color: HexColor("0057FF"),
                       fontSize:
