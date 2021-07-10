@@ -8,23 +8,27 @@ import 'package:mobile/screens/reservation_list_view.dart';
 
 Future main() async {
   await dotenv.load(fileName: ".env");
-  runApp(LogIn());
+  runApp(App());
 }
 
-class LogIn extends StatefulWidget {
+class App extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _LogInState();
+  State<StatefulWidget> createState() => _AppState();
 }
 
-class _LogInState extends State<LogIn> {
+class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: '3i Yeyak', initialRoute: '/login', routes: {
-      '/login': (BuildContext context) => LoginPage(),
-      '/home': (BuildContext context) => HomePage(),
-      '/reservation': (BuildContext context) => ListPage(),
-      '/myreservation': (BuildContext context) => MyPage(),
-      '/credits': (BuildContext context) => CreditPage(),
-    });
+    return MaterialApp(
+        title: '3i Yeyak',
+        initialRoute: '/login',
+        theme: ThemeData(backgroundColor: Colors.white),
+        routes: {
+          '/login': (BuildContext context) => LoginPage(),
+          '/home': (BuildContext context) => HomePage(),
+          '/reservation': (BuildContext context) => ListPage(),
+          '/myreservation': (BuildContext context) => MyPage(),
+          '/credits': (BuildContext context) => CreditPage(),
+        });
   }
 }
