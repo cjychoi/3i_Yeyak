@@ -122,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                     // 버튼 press시 home_view로 전환
                     check();
                   },
-                  child: Text(viewModel.isLoading ? 'Logging in...' : 'Login',
+                  child: Text(_isLoading ? 'Logging in...' : 'Login',
                       style: TextStyle(fontSize: 20))),
             ],
           ),

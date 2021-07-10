@@ -8,6 +8,8 @@ import 'package:flutter/services.dart'; //
 import 'package:intl/intl.dart'; //needed to use date format
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart'; //barcode scanner
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart'; //date picker that supports formfield
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:mobile/util/DateUtil.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -26,6 +28,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   DateTime? value_return_date; //search by date -> return date
   DateTime?
       value; //date time value that will be initial DateTime(default), needed to make minute interval 30 minutes
+
+  final DatePickerTheme datePickerTheme = DatePickerTheme(
+      headerColor: Colors.orange,
+      backgroundColor: Colors.blue,
+      itemStyle: TextStyle(
+          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+      doneStyle: TextStyle(color: Colors.white, fontSize: 16));
+  DateTime? startAt;
+  DateTime? endAt;
 
   @override
   void initState() {
@@ -197,122 +208,99 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           Column(children: <Widget>[
                             Container(
                                 //serach bar
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                        child: TextField(
+                                          decoration: InputDecoration(
+                                              labelText: 'code'),
+                                        ),
+                                        flex: 9),
+                                    Container(
+                                        child: IconButton(
+                                          iconSize:
+                                              50, //Size of QR scanning button
+                                          icon: Icon(Icons.qr_code_2_rounded),
+                                          onPressed: () => {scanQR()},
+                                        ),
+                                        width: 50)
+                                  ],
                                 ),
-                            Container(
-                              child: IconButton(
-                                iconSize: 50, //Size of QR scanning button
-                                icon: Image.asset(
-                                  'images/capture.png', //Camera image that proeceeds to QR scanning screen
+                                padding: EdgeInsets.symmetric(horizontal: 25)),
+                            Wrap(
+                              children: [
+                                GestureDetector(
+                                    onTap: () {
+                                      DatePicker.showDateTimePicker(context,
+                                          showTitleActions: true,
+                                          minTime: DateTime.now(),
+                                          maxTime: endAt, onChanged: (value) {
+                                        setState(() {
+                                          print(value.minute % 30);
+                                          startAt =
+                                              value.roundWithin30Minutes();
+                                        });
+                                      }, onConfirm: (value) {
+                                        setState(() {
+                                          startAt =
+                                              value.roundWithin30Minutes();
+                                        });
+                                      }, theme: this.datePickerTheme);
+                                    },
+                                    child: Container(
+                                      child: Text(
+                                        startAt != null
+                                            ? DateFormat('yyyy-MM-dd HH:mm')
+                                                .format(startAt!)
+                                            : 'Please select rent time',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(fontSize: 17),
+                                      ),
+                                      width: MediaQuery.of(context).size.width *
+                                              .5 -
+                                          25 / 2,
+                                      height: 50,
+                                      alignment: Alignment.center,
+                                    )),
+                                Container(
+                                  child: Text('~',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(fontSize: 20)),
+                                  width: 25,
+                                  height: 50,
+                                  alignment: Alignment.center,
                                 ),
-                                onPressed: () => {scanQR()},
-                              ),
+                                GestureDetector(
+                                    onTap: () {
+                                      DatePicker.showDateTimePicker(context,
+                                          showTitleActions: true,
+                                          minTime: startAt, onChanged: (value) {
+                                        setState(() {
+                                          endAt = value.roundWithin30Minutes();
+                                        });
+                                      }, onConfirm: (value) {
+                                        setState(() {
+                                          endAt = value.roundWithin30Minutes();
+                                        });
+                                      }, theme: this.datePickerTheme);
+                                    },
+                                    child: Container(
+                                      child: Text(
+                                          endAt != null
+                                              ? DateFormat('yyyy-MM-dd HH:mm')
+                                                  .format(endAt!)
+                                              : 'Please select return time',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(fontSize: 17)),
+                                      width: MediaQuery.of(context).size.width *
+                                              .5 -
+                                          25 / 2,
+                                      height: 50,
+                                      alignment: Alignment.center,
+                                    ))
+                              ],
                             )
                           ]),
-                          Text('Select Date',
-                              style: TextStyle(
-                                  fontSize: 25)), //select Date subtitle
-                          Padding(padding: EdgeInsets.only(bottom: 10)),
-                          Text(
-                              'Select Rent Date'), //rent date under search by device
-                          DateTimeField(
-                            decoration: InputDecoration(
-                              enabledBorder: const OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Colors.blue, width: 2.0),
-                              ),
-                              border: OutlineInputBorder(),
-                              labelText: "Enter the date:",
-                            ),
-                            initialValue:
-                                value_rent_dev, //initial value is set as current time
-                            format: format,
-                            resetIcon: Icon(Icons
-                                .delete), //trashcan icon as default delete button
-                            onShowPicker: (context, currentValue) async {
-                              await showCupertinoModalPopup(
-                                  context: context,
-                                  builder: (context) {
-                                    return BottomSheet(
-                                      builder: (context) => Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Container(
-                                            constraints:
-                                                BoxConstraints(maxHeight: 200),
-                                            child: CupertinoDatePicker(
-                                              initialDateTime: value,
-                                              minuteInterval: 30,
-                                              onDateTimeChanged:
-                                                  (DateTime date) {
-                                                value_rent_dev = date;
-                                              },
-                                            ),
-                                          ),
-                                          TextButton(
-                                              onPressed: () =>
-                                                  Navigator.pop(context),
-                                              child: Text('Ok')),
-                                        ],
-                                      ),
-                                      onClosing: () {},
-                                    );
-                                  });
-                              setState(
-                                  () {}); //it runs whenever internal state of the object change occurs,
-                              return value_rent_dev;
-                            },
-                          ),
-                          Padding(padding: EdgeInsets.all(20)),
-                          Text(
-                              'Select Return Date'), //Return date under search by device
-                          DateTimeField(
-                            decoration: InputDecoration(
-                              enabledBorder: const OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Colors.blue, width: 2.0),
-                              ),
-                              border: OutlineInputBorder(),
-                              labelText: "Enter the date:",
-                            ),
-                            initialValue: value_return_dev,
-                            format: format,
-                            resetIcon:
-                                showResetIcon! ? Icon(Icons.delete) : null,
-                            onShowPicker: (context, currentValue) async {
-                              await showCupertinoModalPopup(
-                                  context: context,
-                                  builder: (context) {
-                                    return BottomSheet(
-                                      builder: (context) => Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Container(
-                                            constraints:
-                                                BoxConstraints(maxHeight: 200),
-                                            child: CupertinoDatePicker(
-                                              initialDateTime: value,
-                                              minuteInterval:
-                                                  30, //set unit for each minute change to 30 mins
-                                              onDateTimeChanged:
-                                                  (DateTime date) {
-                                                value_return_dev = date;
-                                              },
-                                            ),
-                                          ),
-                                          TextButton(
-                                              onPressed: () =>
-                                                  Navigator.pop(context),
-                                              child: Text('Ok')),
-                                        ],
-                                      ),
-                                      onClosing: () {},
-                                    );
-                                  });
-                              setState(() {});
-                              return value_return_dev;
-                            },
-                          ),
-                          Padding(padding: EdgeInsets.only(bottom: 40)),
                           FloatingActionButton.extended(
                             backgroundColor: Colors.blue,
                             foregroundColor: Colors.white,
