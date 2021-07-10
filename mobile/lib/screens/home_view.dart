@@ -38,6 +38,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   DateTime? startAt;
   DateTime? endAt;
 
+  void changeStartAt(DateTime value) {
+    setState(() {
+      startAt = value.roundWithin30Minutes();
+    });
+  }
+
+  void changeEndAt(DateTime value) {
+    setState(() {
+      endAt = value.roundWithin30Minutes();
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -105,52 +117,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             ),
           ),
         ),
-        endDrawer: Drawer(
-          //use endDrawer to display drawer at right top corner
-          child: ListView(
-            // Important: Remove any padding from the ListPage.
-            padding: EdgeInsets.zero, //No paddings
-            children: <Widget>[
-              DrawerHeader(
-                // decoration: BoxDecoration(
-                //   color: Colors.blue,
-                // ),
-                child: Text(
-                  globals.user!.username,
-                  style: new TextStyle(
-                      color: HexColor("0057FF"),
-                      fontSize:
-                          35.0), //display another username in the drawer when opened
-                ),
-              ),
-              ListTile(
-                title: Text('My Reservation',
-                    style: new TextStyle(color: Colors.black, fontSize: 20.0)),
-                onTap: () {
-                  Navigator.of(context).pushNamed('/myreservation');
-                  //redirect to the device ListPage
-                },
-              ),
-              ListTile(
-                title: Text('Reservation Status',
-                    style: new TextStyle(color: Colors.black, fontSize: 20.0)),
-                onTap: () {
-                  Navigator.of(context).pushNamed('/reservation');
-                  //display general reservation status of the devices
-                },
-              ),
-              Padding(padding: EdgeInsets.only(bottom: 60)),
-              ListTile(
-                title:
-                    Text('Credit', style: new TextStyle(color: Colors.white)),
-                onLongPress: () {
-                  Navigator.of(context).popAndPushNamed('/credits');
-                },
-                //display general reservation status of the devices
-              )
-            ],
-          ),
-        ),
+        endDrawer: HomeDrawer(),
         body: new Container(
           child: ListView(
             children: <Widget>[
@@ -227,78 +194,74 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   ],
                                 ),
                                 padding: EdgeInsets.symmetric(horizontal: 25)),
-                            Wrap(
-                              children: [
-                                GestureDetector(
-                                    onTap: () {
-                                      DatePicker.showDateTimePicker(context,
-                                          showTitleActions: true,
-                                          minTime: DateTime.now(),
-                                          maxTime: endAt, onChanged: (value) {
-                                        setState(() {
-                                          print(value.minute % 30);
-                                          startAt =
-                                              value.roundWithin30Minutes();
-                                        });
-                                      }, onConfirm: (value) {
-                                        setState(() {
-                                          startAt =
-                                              value.roundWithin30Minutes();
-                                        });
-                                      }, theme: this.datePickerTheme);
-                                    },
-                                    child: Container(
-                                      child: Text(
-                                        startAt != null
-                                            ? DateFormat('yyyy-MM-dd HH:mm')
-                                                .format(startAt!)
-                                            : 'Please select rent time',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(fontSize: 17),
-                                      ),
-                                      width: MediaQuery.of(context).size.width *
-                                              .5 -
-                                          25 / 2,
-                                      height: 50,
-                                      alignment: Alignment.center,
-                                    )),
-                                Container(
-                                  child: Text('~',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(fontSize: 20)),
-                                  width: 25,
-                                  height: 50,
-                                  alignment: Alignment.center,
-                                ),
-                                GestureDetector(
-                                    onTap: () {
-                                      DatePicker.showDateTimePicker(context,
-                                          showTitleActions: true,
-                                          minTime: startAt, onChanged: (value) {
-                                        setState(() {
-                                          endAt = value.roundWithin30Minutes();
-                                        });
-                                      }, onConfirm: (value) {
-                                        setState(() {
-                                          endAt = value.roundWithin30Minutes();
-                                        });
-                                      }, theme: this.datePickerTheme);
-                                    },
-                                    child: Container(
-                                      child: Text(
-                                          endAt != null
+                            Container(
+                              child: Wrap(
+                                children: [
+                                  GestureDetector(
+                                      onTap: () {
+                                        DatePicker.showDateTimePicker(context,
+                                            showTitleActions: true,
+                                            minTime: DateTime.now(),
+                                            maxTime: endAt,
+                                            onChanged: changeStartAt,
+                                            onConfirm: changeStartAt,
+                                            theme: this.datePickerTheme);
+                                      },
+                                      child: Container(
+                                        child: Text(
+                                          startAt != null
                                               ? DateFormat('yyyy-MM-dd HH:mm')
-                                                  .format(endAt!)
-                                              : 'Please select return time',
+                                                  .format(startAt!)
+                                              : 'Please select rent time',
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(fontSize: 17)),
-                                      width: MediaQuery.of(context).size.width *
-                                              .5 -
-                                          25 / 2,
-                                      height: 50,
-                                      alignment: Alignment.center,
-                                    ))
-                              ],
+                                          style: TextStyle(fontSize: 17),
+                                        ),
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                    .5 -
+                                                25 / 2 -
+                                                1,
+                                        height: 50,
+                                        alignment: Alignment.center,
+                                      )),
+                                  Container(
+                                    child: Text('~',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(fontSize: 20)),
+                                    width: 25,
+                                    height: 50,
+                                    alignment: Alignment.center,
+                                  ),
+                                  GestureDetector(
+                                      onTap: () {
+                                        DatePicker.showDateTimePicker(context,
+                                            showTitleActions: true,
+                                            minTime: startAt,
+                                            onChanged: changeEndAt,
+                                            onConfirm: changeEndAt,
+                                            theme: this.datePickerTheme);
+                                      },
+                                      child: Container(
+                                        child: Text(
+                                            endAt != null
+                                                ? DateFormat('yyyy-MM-dd HH:mm')
+                                                    .format(endAt!)
+                                                : 'Please select return time',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(fontSize: 17)),
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                    .5 -
+                                                25 / 2 -
+                                                1,
+                                        height: 50,
+                                        alignment: Alignment.center,
+                                      ))
+                                ],
+                              ),
+                              decoration: BoxDecoration(
+                                  border:
+                                      Border.all(width: 1, color: Colors.grey)),
                             )
                           ]),
                           FloatingActionButton.extended(
@@ -435,5 +398,56 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             ],
           ),
         ));
+  }
+}
+
+class HomeDrawer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      //use endDrawer to display drawer at right top corner
+      child: ListView(
+        // Important: Remove any padding from the ListPage.
+        padding: EdgeInsets.zero, //No paddings
+        children: <Widget>[
+          DrawerHeader(
+            // decoration: BoxDecoration(
+            //   color: Colors.blue,
+            // ),
+            child: Text(
+              globals.user!.username,
+              style: new TextStyle(
+                  color: HexColor("0057FF"),
+                  fontSize:
+                      35.0), //display another username in the drawer when opened
+            ),
+          ),
+          ListTile(
+            title: Text('My Reservation',
+                style: new TextStyle(color: Colors.black, fontSize: 20.0)),
+            onTap: () {
+              Navigator.of(context).pushNamed('/myreservation');
+              //redirect to the device ListPage
+            },
+          ),
+          ListTile(
+            title: Text('Reservation Status',
+                style: new TextStyle(color: Colors.black, fontSize: 20.0)),
+            onTap: () {
+              Navigator.of(context).pushNamed('/reservation');
+              //display general reservation status of the devices
+            },
+          ),
+          Padding(padding: EdgeInsets.only(bottom: 60)),
+          ListTile(
+            title: Text('Credit', style: new TextStyle(color: Colors.white)),
+            onLongPress: () {
+              Navigator.of(context).popAndPushNamed('/credits');
+            },
+            //display general reservation status of the devices
+          )
+        ],
+      ),
+    );
   }
 }
