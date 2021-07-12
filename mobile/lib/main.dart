@@ -21,7 +21,7 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: '3i Yeyak',
-        initialRoute: '/credits', // '/login',
+        initialRoute: '/home', // '/login',
         theme: ThemeData(backgroundColor: Colors.white),
         routes: {
           '/login': (BuildContext context) => LoginPage(),

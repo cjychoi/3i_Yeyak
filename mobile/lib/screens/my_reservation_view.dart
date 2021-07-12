@@ -111,7 +111,7 @@ class DataTableDemoState extends State<DataTableDemo> {
           DataColumn(
               label: Icon(Icons.calendar_today, color: Colors.green[500]),
               numeric: false,
-              tooltip: "This is Date",
+              tooltip: "This is rent date",
               onSort: (columnIndex, ascending) {
                 setState(() {
                   sort = !sort;
@@ -124,7 +124,7 @@ class DataTableDemoState extends State<DataTableDemo> {
             tooltip: "This is return date",
           ),
           DataColumn(
-            label: Icon(Icons.android, color: Colors.green[500]),
+            label: Icon(Icons.smartphone, color: Colors.green[500]),
             numeric: false,
             tooltip: "This is the device name",
           )

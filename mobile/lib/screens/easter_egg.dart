@@ -18,7 +18,9 @@ class _CreditPageState extends State<CreditPage> {
         appBar: AppBar(
           backgroundColor: Colors.black,
           leading: BackButton(
-            //implement backbutton in
+            // onPressed: () {
+            //   Navigator.of(context).popAndPushNamed('/home');
+            // }, //implement backbutton in
             color: Colors.white,
           ),
           title: Text("Credits"),
@@ -55,7 +57,7 @@ class _CreditPageState extends State<CreditPage> {
                   child: Row(children: <Widget>[
                     Text(" Jinsang Oh   ",
                         style: new TextStyle(color: Colors.white)),
-                    Image.asset('images/James.png', width: 200),
+                    Image.asset('images/James.jpeg', width: 200),
                     Container()
                   ]),
                 ),
@@ -63,7 +65,7 @@ class _CreditPageState extends State<CreditPage> {
                 Container(
                   child: Row(children: <Widget>[
                     Text("  Juan Kim      ",
-                        style: new TextStyle(color: Colors.white)),
+                        style: new TextStyle(color: HexColor("FFB6C1"))),
                     Image.asset('images/Juan.jpeg', width: 200),
                   ]),
                 ),
