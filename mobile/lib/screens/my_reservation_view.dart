@@ -162,10 +162,6 @@ class DataTableDemoState extends State<DataTableDemo> {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(
-          //onPressed: () {
-          //   Navigator.of(context).popAndPushNamed('/home');
-          // },
-          //implement backbutton in
           color: Colors.white,
         ),
         title: Text(widget.title),
@@ -183,13 +179,6 @@ class DataTableDemoState extends State<DataTableDemo> {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              // Padding(
-              //   padding: EdgeInsets.all(20.0),
-              //   child: OutlinedButton(
-              //     child: Text('SELECTED ${selectedUsers.length}'),
-              //     onPressed: () {},
-              //   ),
-              // ),
               Padding(
                 padding: EdgeInsets.all(20.0),
                 child: OutlinedButton(
