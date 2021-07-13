@@ -37,6 +37,25 @@ public class ReservationServiceImpl implements ReservationService {
 
         return reservationList;
     }
+    //load userReservation data
+    @Override
+    public Reservation loadUser(String id) throws Exception {
+        Optional<Reservation> userReservation = reservationRepository.findById(id);
+        if (userReservation.isEmpty()) {
+            throw new ApiException(ApiErrorCode.RESERVATION_NOT_FOUND);
+        }
+
+        return userReservation.get();
+    }
+    @Override
+    public Reservation loadDevice(String id) throws Exception {
+        Optional<Reservation> deviceReservation = reservationRepository.findById(id);
+        if (deviceReservation.isEmpty()) {
+            throw new ApiException(ApiErrorCode.RESERVATION_NOT_FOUND);
+        }
+
+        return deviceReservation.get();
+    }
 
     @Override
     public Reservation create(CreateReservationDTO payload) throws Exception {

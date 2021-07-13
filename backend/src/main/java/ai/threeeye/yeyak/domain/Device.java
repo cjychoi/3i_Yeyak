@@ -29,7 +29,7 @@ public class Device {
     private String manufacturer;
     private String model;
     private String color;
-    private OS os;
+    private String os;
     private boolean availability;
     private String description;
 

@@ -12,8 +12,8 @@ public enum OS implements CodeEnum {
     @JsonProperty("Android")
     ANDROID("Android"),
 
-    @JsonProperty("iPhone")
-    IPHONE("iPhone");
+    @JsonProperty("iOS")
+    IPHONE("iOS");
 
     private final String name;
 

@@ -24,6 +24,8 @@ public enum ApiErrorCode {
     // Reservation
     ALREADY_RESERVED_DEVICE(400, "api.error.already_reserved_device", "이미 예약된 디바이스 입니다."),
 
+    RESERVATION_NOT_FOUND(400, "api.error.reservation_not_found", "예약 정보가 없습니다."),
+
     //Common
     NOT_AVAILABLE(400, "api.error.not_available", "불가능 한 동작입니다."),
 

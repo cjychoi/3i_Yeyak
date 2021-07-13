@@ -42,7 +42,76 @@ public class ReservationController {
 
         return returnMap;
     }
+/*
+    @GetMapping
+    public Map<String, Object> load(@RequestBody LoadReservationDTO payload, HttpServletResponse res) {
+        Map<String, Object> returnMap = new HashMap<>();
 
+        try {
+            returnMap.put("result", 1);
+            returnMap.put("data", reservationService.load(payload));
+        } catch (ApiException e) {
+            res.setStatus(e.getStatus());
+            returnMap.put("result", 0);
+            returnMap.put("resultCode", e.getCode());
+            returnMap.put("resultMsg", e.getMsg());
+        } catch (Exception e) {
+            log.error("", e);
+            res.setStatus(ApiErrorCode.UNKNOWN.getStatus());
+            returnMap.put("result", 0);
+            returnMap.put("resultCode", ApiErrorCode.UNKNOWN.getCode());
+            returnMap.put("resultMsg", ApiErrorCode.UNKNOWN.getMsg());
+        }
+
+        return returnMap;
+    }
+*/
+
+
+    @GetMapping("/{id}") // /reservations/{id} GET
+    public Map<String, Object> loadUser(@PathVariable String id, HttpServletResponse res) {
+        Map<String, Object> returnMap = new HashMap<>();
+
+        try {
+            returnMap.put("result", 1);
+            returnMap.put("data", reservationService.loadUser(id));
+        } catch (ApiException e) {
+            res.setStatus(e.getStatus());
+            returnMap.put("result", 0);
+            returnMap.put("resultCode", e.getCode());
+            returnMap.put("resultMsg", e.getMsg());
+        } catch (Exception e) {
+            log.error("", e);
+            res.setStatus(ApiErrorCode.UNKNOWN.getStatus());
+            returnMap.put("result", 0);
+            returnMap.put("resultCode", ApiErrorCode.UNKNOWN.getCode());
+            returnMap.put("resultMsg", ApiErrorCode.UNKNOWN.getMsg());
+        }
+
+        return returnMap;
+    }
+    @GetMapping("/{id}") // /reservations/{id GET
+    public Map<String, Object> loadDevice(@PathVariable String id, HttpServletResponse res) {
+        Map<String, Object> returnMap = new HashMap<>();
+
+        try {
+            returnMap.put("result", 1);
+            returnMap.put("data", reservationService.loadDevice(id));
+        } catch (ApiException e) {
+            res.setStatus(e.getStatus());
+            returnMap.put("result", 0);
+            returnMap.put("resultCode", e.getCode());
+            returnMap.put("resultMsg", e.getMsg());
+        } catch (Exception e) {
+            log.error("", e);
+            res.setStatus(ApiErrorCode.UNKNOWN.getStatus());
+            returnMap.put("result", 0);
+            returnMap.put("resultCode", ApiErrorCode.UNKNOWN.getCode());
+            returnMap.put("resultMsg", ApiErrorCode.UNKNOWN.getMsg());
+        }
+
+        return returnMap;
+    }
     @PostMapping
     public Map<String, Object> create(@RequestBody CreateReservationDTO payload, HttpServletResponse res) {
         Map<String, Object> returnMap = new HashMap<>();

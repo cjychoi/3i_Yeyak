@@ -22,7 +22,7 @@ public class CreateDeviceDTO {
     @NotEmpty(message = "Color may not be empty")
     private String color;
     @NotNull(message = "OS may not be null")
-    private OS os;
+    private String os;
     @NotNull(message = "Availability may not be null")
     private Boolean availability;
 
