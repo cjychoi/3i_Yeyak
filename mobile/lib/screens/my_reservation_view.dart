@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/screens/login_view.dart';
+//import 'package:mobile/screens/login_view.dart';
 
 void main() => runApp(MyPage());
 
@@ -12,19 +12,36 @@ class MyPage extends StatelessWidget {
 }
 
 class User {
-  String devices;
+  String returnDate;
   String date;
-  String userName;
+  //String returnDate;
+  String deviceName;
 
-  User({required this.devices, required this.date, required this.userName});
+  User(
+      {required this.returnDate, required this.date, required this.deviceName});
 
   static List<User> getUsers() {
     return <User>[
-      User(date: "2021-07-21 05:30", devices: "S 10", userName: "Juan"),
-      User(date: "2021-07-21 06:30", devices: "Note 20", userName: "James"),
-      User(date: "2021-07-20 04:30", devices: "iPhone 11", userName: "George"),
-      User(date: "2021-07-26 07:30", devices: "Juan 12", userName: "Andrew"),
-      User(date: "2021-07-23 04:30", devices: "Juan 84", userName: "Jedi"),
+      User(
+          date: "2021-07-21 05:30",
+          returnDate: "2021-07-21 07:30",
+          deviceName: "S 10"),
+      User(
+          date: "2021-07-21 06:30",
+          returnDate: "2021-07-21 08:30",
+          deviceName: "Note 20"),
+      User(
+          date: "2021-07-20 04:30",
+          returnDate: "2021-07-21 09:30",
+          deviceName: "iPhone 8"),
+      User(
+          date: "2021-07-26 07:30",
+          returnDate: "2021-07-21 10:30",
+          deviceName: "iPhone 11 Pro"),
+      User(
+          date: "2021-07-23 04:30",
+          returnDate: "2021-07-21 11:30",
+          deviceName: "Juan 84"),
     ];
   }
 }
@@ -102,14 +119,14 @@ class DataTableDemoState extends State<DataTableDemo> {
                 onSortColum(columnIndex, ascending);
               }),
           DataColumn(
-            label: Icon(Icons.phone_android, color: Colors.green[500]),
+            label: Icon(Icons.calendar_today, color: Colors.green[500]),
             numeric: false,
-            tooltip: "This is Device Name",
+            tooltip: "This is return date",
           ),
           DataColumn(
-            label: Icon(Icons.person, color: Colors.green[500]),
+            label: Icon(Icons.android, color: Colors.green[500]),
             numeric: false,
-            tooltip: "This is the name of the user",
+            tooltip: "This is the device name",
           )
         ],
         rows: users
@@ -128,10 +145,10 @@ class DataTableDemoState extends State<DataTableDemo> {
                       },
                     ),
                     DataCell(
-                      Text(user.devices),
+                      Text(user.returnDate),
                     ),
                     DataCell(
-                      Text(user.userName),
+                      Text(user.deviceName),
                     ),
                   ]),
             )

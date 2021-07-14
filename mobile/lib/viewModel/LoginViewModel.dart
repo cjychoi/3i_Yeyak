@@ -9,8 +9,6 @@ import 'package:mobile/models/User.dart';
 class LoginViewModel {
   final API_HOST = dotenv.env["API_HOST"];
 
-  bool isLoading = false;
-
   Future<User> login(String username) async {
     try {
       final Response<Map<String, dynamic>> res = await Dio()

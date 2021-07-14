@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
                 throw new ApiException(ApiErrorCode.INVALID_PARAMETER, "Username may not be empty");
             }
             User user = User.builder()
-                    .username(payload.getUsername())
+                    .username(payload.getUsername().trim().toLowerCase())
                     .build();
 
             userRepository.insert(user);
