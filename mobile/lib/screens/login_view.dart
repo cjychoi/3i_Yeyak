@@ -20,29 +20,31 @@ class _LoginPageState extends State<LoginPage> {
     if (_formKey.currentState == null) return;
     if (_formKey.currentState!.validate()) {
       // 검사
-      setState(() {
-        _isLoading = true;
-      });
-      viewModel
-          .login(_usernameController.text)
-          .then((value) => {
-                setState(() {
-                  _isLoading = false;
-                }),
-                globals.user = value,
-                Navigator.of(context).popAndPushNamed('/home') // 이동
-              })
-          .catchError((err) {
-        Fluttertoast.showToast(
-          msg: err.message,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-        );
-      }).whenComplete(() {
+      if (!_isLoading) {
         setState(() {
-          _isLoading = false;
+          _isLoading = true;
         });
-      });
+        viewModel
+            .login(_usernameController.text)
+            .then((value) => {
+                  setState(() {
+                    _isLoading = false;
+                  }),
+                  globals.user = value,
+                  Navigator.of(context).popAndPushNamed('/home') // 이동
+                })
+            .catchError((err) {
+          Fluttertoast.showToast(
+            msg: err.message,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+          );
+        }).whenComplete(() {
+          setState(() {
+            _isLoading = false;
+          });
+        });
+      }
     }
   }
 

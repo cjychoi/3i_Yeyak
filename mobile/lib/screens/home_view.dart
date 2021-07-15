@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       value; //date time value that will be initial DateTime(default), needed to make minute interval 30 minutes
 
   final DatePickerTheme datePickerTheme = DatePickerTheme(
-      headerColor: Colors.orange,
+      headerColor: Colors.blue,
       backgroundColor: Colors.blue,
       itemStyle: TextStyle(
           color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
@@ -166,8 +166,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ),
                     Container(
                       height: 600, //put tabbar below appbar
-                      child: TabBarView(controller: _tabController, children: <
-                          Widget>[
+                      child: TabBarView(controller: _tabController, children: [
                         Column(children: <Widget>[
                           Padding(padding: EdgeInsets.all(10)),
                           Text('Search Devices', //search by device subtitle
