@@ -21,12 +21,12 @@ public class ReservationController {
     private final ReservationService reservationService;
 
     @GetMapping
-    public Map<String, Object> list(HttpServletResponse res) {
+    public Map<String, Object> list(@RequestParam(name = "deviceId", required = false) String deviceId, @RequestParam(name = "userId", required = false) String userId, HttpServletResponse res) {
         Map<String, Object> returnMap = new HashMap<>();
 
         try {
             returnMap.put("result", 1);
-            returnMap.put("data", reservationService.list());
+            returnMap.put("data", reservationService.list(deviceId, userId));
         } catch (ApiException e) {
             res.setStatus(e.getStatus());
             returnMap.put("result", 0);

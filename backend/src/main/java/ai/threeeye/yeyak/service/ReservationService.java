@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ReservationService {
 
-    List<Reservation> list() throws Exception;
+    List<Reservation> list(String deviceId, String userId) throws Exception;
 
     Reservation create(CreateReservationDTO payload) throws Exception;
 
