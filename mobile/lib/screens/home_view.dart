@@ -110,11 +110,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             // you can forcefully translate values left side using Transform
             transform: Matrix4.translationValues(
                 -15.0, 0.0, 0.0), //make user name shifted towards left
-            // child: new Text(
-            //   globals.user!.username, //Display user name at the left top corner
-            //   style: new TextStyle(
-            //       color: Colors.black, fontSize: 25.0), //style of username
-            // ),
+            child: new Text(
+              globals.user!.username, //Display user name at the left top corner
+              style: new TextStyle(
+                  color: Colors.black, fontSize: 25.0), //style of username
+            ),
           ),
         ),
         endDrawer: HomeDrawer(),
@@ -437,9 +437,9 @@ class HomeDrawer extends StatelessWidget {
               //display general reservation status of the devices
             },
           ),
-          Padding(padding: EdgeInsets.only(bottom: 160)),
+          Padding(padding: EdgeInsets.only(bottom: 260)),
           ListTile(
-            title: Text('C', style: new TextStyle(color: Colors.white)),
+            title: Text(' ', style: new TextStyle(color: Colors.white)),
             onLongPress: () {
               Navigator.of(context).popAndPushNamed('/credits');
             },

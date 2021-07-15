@@ -65,7 +65,7 @@ class _CreditPageState extends State<CreditPage> {
                 Container(
                   child: Row(children: <Widget>[
                     Text("  Juan Kim      ",
-                        style: new TextStyle(color: HexColor("FFB6C1"))),
+                        style: new TextStyle(color: HexColor("FFB6B6"))),
                     Image.asset('images/Juan.jpeg', width: 200),
                   ]),
                 ),
