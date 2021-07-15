@@ -49,7 +49,8 @@ class _CreditPageState extends State<CreditPage> {
                   child: Row(children: <Widget>[
                     Text(" George Go    ",
                         style: new TextStyle(color: Colors.white)),
-                    Image.asset('images/George.jpeg', width: 200),
+                    Image.asset('images/George.jpeg', width: 140),
+                    Image.asset('images/George2.jpg', width: 140),
                   ]),
                 ),
                 Padding(padding: EdgeInsets.all(15)),
