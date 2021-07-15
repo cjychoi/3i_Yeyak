@@ -11,6 +11,7 @@ class LoginViewModel {
 
   Future<User> login(String username) async {
     try {
+      print("url $API_HOST/users/login");
       final Response<Map<String, dynamic>> res = await Dio()
           .post('$API_HOST/users/login', data: {"username": username},
               options: Options(validateStatus: (status) {

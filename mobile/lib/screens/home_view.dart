@@ -410,16 +410,16 @@ class HomeDrawer extends StatelessWidget {
         padding: EdgeInsets.zero, //No paddings
         children: <Widget>[
           DrawerHeader(
-            // decoration: BoxDecoration(
-            //   color: Colors.blue,
-            // ),
-            child: Text("testing"),
-            // globals.user!.username,
-            // style: new TextStyle(
-            //     color: HexColor("0057FF"),
-            //     fontSize:
-            //         35.0), //display another username in the drawer when opened
-            //),
+            decoration: BoxDecoration(
+              color: Colors.blue,
+            ),
+            child: Text(
+              globals.user!.username,
+              style: new TextStyle(
+                  color: HexColor("0057FF"),
+                  fontSize:
+                      35.0), //display another username in the drawer when opened
+            ),
           ),
           ListTile(
             title: Text('My Reservation',
