@@ -99,6 +99,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               30, //set unit for each minute change to 10 mins
                           onDateTimeChanged: (DateTime date) {
                             startAt = date;
+                            value = startAt;
                           },
                         ),
                       ),
@@ -110,7 +111,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   onClosing: () {},
                 );
               });
-          //setState(() {});
+          setState(() {});
           return startAt;
         },
       );
@@ -126,7 +127,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             ),
             border: OutlineInputBorder(),
             labelText: "Enter the date:"),
-        initialValue: startAt,
+        initialValue: endAt,
         format: format,
         resetIcon: showResetIcon! ? Icon(Icons.delete) : null,
         onShowPicker: (context, currentValue) async {
@@ -144,7 +145,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           minuteInterval:
                               30, //set unit for each minute change to 10 mins
                           onDateTimeChanged: (DateTime date) {
-                            startAt = date;
+                            endAt = date;
                           },
                         ),
                       ),
@@ -156,8 +157,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   onClosing: () {},
                 );
               });
-          //setState(() {});
-          return startAt;
+          setState(() {});
+          return endAt;
         },
       );
     }
