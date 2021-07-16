@@ -20,23 +20,22 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final format = DateFormat(
       "yyyy-MM-dd HH:mm"); //the date format it will be displayed at date format field
   bool? showResetIcon = true;
-  DateTime?
+  static DateTime?
       value; //date time value that will be initial DateTime(default), needed to make minute interval 30 minutes
-
   DateTime? startAt;
   DateTime? endAt;
 
-  void changeStartAt(DateTime value) {
-    setState(() {
-      startAt = value;
-    });
-  }
+  // void changeStaxrtAt(DateTime value) {
+  //   setState(() {
+  //     startAt = value;
+  //   });
+  // }
 
-  void changeEndAt(DateTime value) {
-    setState(() {
-      endAt = value;
-    });
-  }
+  // void changeEndAt(DateTime value) {
+  //   setState(() {
+  //     endAt = value;
+  //   });
+  // }
 
   @override
   void initState() {
@@ -70,6 +69,98 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   void dispose() {
     _tabController.dispose();
     super.dispose();
+  }
+
+  Widget rentDate() {
+    {
+      return DateTimeField(
+        decoration: InputDecoration(
+            enabledBorder: const OutlineInputBorder(
+              borderSide: const BorderSide(color: Colors.blue, width: 2.0),
+            ),
+            border: OutlineInputBorder(),
+            labelText: "Enter the date:"),
+        initialValue: startAt,
+        format: format,
+        resetIcon: showResetIcon! ? Icon(Icons.delete) : null,
+        onShowPicker: (context, currentValue) async {
+          await showCupertinoModalPopup(
+              context: context,
+              builder: (context) {
+                return BottomSheet(
+                  builder: (context) => Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        constraints: BoxConstraints(maxHeight: 200),
+                        child: CupertinoDatePicker(
+                          initialDateTime: value,
+                          minuteInterval:
+                              30, //set unit for each minute change to 10 mins
+                          onDateTimeChanged: (DateTime date) {
+                            startAt = date;
+                          },
+                        ),
+                      ),
+                      TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: Text('Ok')),
+                    ],
+                  ),
+                  onClosing: () {},
+                );
+              });
+          //setState(() {});
+          return startAt;
+        },
+      );
+    }
+  }
+
+  Widget returnDate() {
+    {
+      return DateTimeField(
+        decoration: InputDecoration(
+            enabledBorder: const OutlineInputBorder(
+              borderSide: const BorderSide(color: Colors.blue, width: 2.0),
+            ),
+            border: OutlineInputBorder(),
+            labelText: "Enter the date:"),
+        initialValue: startAt,
+        format: format,
+        resetIcon: showResetIcon! ? Icon(Icons.delete) : null,
+        onShowPicker: (context, currentValue) async {
+          await showCupertinoModalPopup(
+              context: context,
+              builder: (context) {
+                return BottomSheet(
+                  builder: (context) => Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        constraints: BoxConstraints(maxHeight: 200),
+                        child: CupertinoDatePicker(
+                          initialDateTime: value,
+                          minuteInterval:
+                              30, //set unit for each minute change to 10 mins
+                          onDateTimeChanged: (DateTime date) {
+                            startAt = date;
+                          },
+                        ),
+                      ),
+                      TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: Text('Ok')),
+                    ],
+                  ),
+                  onClosing: () {},
+                );
+              });
+          //setState(() {});
+          return startAt;
+        },
+      );
+    }
   }
 
   @override
@@ -154,8 +245,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ),
                     Container(
                       height: 600, //put tabbar below appbar
-                      child: TabBarView(controller: _tabController, children: <
-                          Widget>[
+                      child: TabBarView(controller: _tabController, children: [
                         Column(children: <Widget>[
                           Padding(padding: EdgeInsets.all(10)),
                           Text('Search Devices', //search by device subtitle
@@ -186,228 +276,30 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             Text('Select Date', style: TextStyle(fontSize: 25)),
                             Padding(padding: EdgeInsets.all(15)),
                             Text('Select Rent Date'),
-                            DateTimeField(
-                              decoration: InputDecoration(
-                                  enabledBorder: const OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Colors.blue, width: 2.0),
-                                  ),
-                                  border: OutlineInputBorder(),
-                                  labelText: "Enter the date:"),
-                              initialValue: startAt,
-                              format: format,
-                              resetIcon:
-                                  showResetIcon! ? Icon(Icons.delete) : null,
-                              onShowPicker: (context, currentValue) async {
-                                await showCupertinoModalPopup(
-                                    context: context,
-                                    builder: (context) {
-                                      return BottomSheet(
-                                        builder: (context) => Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Container(
-                                              constraints: BoxConstraints(
-                                                  maxHeight: 200),
-                                              child: CupertinoDatePicker(
-                                                initialDateTime: value,
-                                                minuteInterval:
-                                                    30, //set unit for each minute change to 10 mins
-                                                onDateTimeChanged:
-                                                    (DateTime date) {
-                                                  startAt = date;
-                                                },
-                                              ),
-                                            ),
-                                            TextButton(
-                                                onPressed: () =>
-                                                    Navigator.pop(context),
-                                                child: Text('Ok')),
-                                          ],
-                                        ),
-                                        onClosing: () {},
-                                      );
-                                    });
-                                setState(() {});
-                                return startAt;
-                              },
-                            ),
+                            rentDate(),
                             SizedBox(height: 24),
                             Padding(padding: EdgeInsets.all(20)),
                             Text('Select Return Date'),
-                            DateTimeField(
-                              decoration: InputDecoration(
-                                enabledBorder: const OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      color: Colors.blue, width: 2.0),
-                                ),
-                                border: OutlineInputBorder(),
-                                labelText: "Enter the date:",
-                              ),
-                              initialValue: endAt,
-                              format: format,
-                              resetIcon: Icon(
-                                  Icons.delete), //Set reset icon as trashcan
-                              onShowPicker: (context, currentValue) async {
-                                await showCupertinoModalPopup(
-                                    context: context,
-                                    builder: (context) {
-                                      return BottomSheet(
-                                        builder: (context) => Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Container(
-                                              constraints: BoxConstraints(
-                                                  maxHeight: 200),
-                                              child: CupertinoDatePicker(
-                                                initialDateTime: value,
-                                                minuteInterval:
-                                                    30, //set unit for each minute change to 10 mins
-                                                onDateTimeChanged:
-                                                    (DateTime date) {
-                                                  endAt = date;
-                                                },
-                                              ),
-                                            ),
-                                            TextButton(
-                                                onPressed: () =>
-                                                    Navigator.pop(context),
-                                                child: Text('Ok')),
-                                          ],
-                                        ),
-                                        onClosing: () {},
-                                      );
-                                    });
-                                setState(() {});
-                                return endAt;
-                              },
-                            ),
+                            returnDate()
                           ]),
                           Padding(padding: EdgeInsets.all(30)),
-                          FloatingActionButton.extended(
-                            backgroundColor: Colors.blue,
-                            foregroundColor: Colors.white,
-                            onPressed: () {
-                              print('Reserve button has been pressed');
-                            },
-                            icon: Icon(Icons.check),
-                            label:
-                                Text('Reserve', style: TextStyle(fontSize: 20)),
-                          )
+                          reserveButton(),
                         ]),
                         Column(children: <Widget>[
                           Padding(padding: EdgeInsets.all(20)),
                           Text('Select Date', style: TextStyle(fontSize: 25)),
                           Padding(padding: EdgeInsets.all(15)),
                           Text('Select Rent Date'),
-                          DateTimeField(
-                            decoration: InputDecoration(
-                                enabledBorder: const OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      color: Colors.blue, width: 2.0),
-                                ),
-                                border: OutlineInputBorder(),
-                                labelText: "Enter the date:"),
-                            initialValue: startAt,
-                            format: format,
-                            resetIcon:
-                                showResetIcon! ? Icon(Icons.delete) : null,
-                            onShowPicker: (context, currentValue) async {
-                              await showCupertinoModalPopup(
-                                  context: context,
-                                  builder: (context) {
-                                    return BottomSheet(
-                                      builder: (context) => Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Container(
-                                            constraints:
-                                                BoxConstraints(maxHeight: 200),
-                                            child: CupertinoDatePicker(
-                                              initialDateTime: value,
-                                              minuteInterval:
-                                                  30, //set unit for each minute change to 10 mins
-                                              onDateTimeChanged:
-                                                  (DateTime date) {
-                                                startAt = date;
-                                              },
-                                            ),
-                                          ),
-                                          TextButton(
-                                              onPressed: () =>
-                                                  Navigator.pop(context),
-                                              child: Text('Ok')),
-                                        ],
-                                      ),
-                                      onClosing: () {},
-                                    );
-                                  });
-                              setState(() {});
-                              return startAt;
-                            },
-                          ),
+                          rentDate(),
+
                           SizedBox(height: 24),
                           Padding(padding: EdgeInsets.all(20)),
                           Text('Select Return Date'),
-                          DateTimeField(
-                            decoration: InputDecoration(
-                              enabledBorder: const OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Colors.blue, width: 2.0),
-                              ),
-                              border: OutlineInputBorder(),
-                              labelText: "Enter the date:",
-                            ),
-                            initialValue: endAt,
-                            format: format,
-                            resetIcon:
-                                Icon(Icons.delete), //Set reset icon as trashcan
-                            onShowPicker: (context, currentValue) async {
-                              await showCupertinoModalPopup(
-                                  context: context,
-                                  builder: (context) {
-                                    return BottomSheet(
-                                      builder: (context) => Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Container(
-                                            constraints:
-                                                BoxConstraints(maxHeight: 200),
-                                            child: CupertinoDatePicker(
-                                              initialDateTime: value,
-                                              minuteInterval:
-                                                  30, //set unit for each minute change to 10 mins
-                                              onDateTimeChanged:
-                                                  (DateTime date) {
-                                                endAt = date;
-                                              },
-                                            ),
-                                          ),
-                                          TextButton(
-                                              onPressed: () =>
-                                                  Navigator.pop(context),
-                                              child: Text('Ok')),
-                                        ],
-                                      ),
-                                      onClosing: () {},
-                                    );
-                                  });
-                              setState(() {});
-                              return endAt;
-                            },
-                          ),
+                          returnDate(),
+
                           Padding(padding: EdgeInsets.only(bottom: 40)),
                           //Reserve button floating button
-                          FloatingActionButton.extended(
-                            backgroundColor: Colors.blue,
-                            foregroundColor: Colors.white,
-                            onPressed: () {
-                              print('Reserve button has been pressed');
-                            },
-                            icon: Icon(Icons.check),
-                            label:
-                                Text('Reserve', style: TextStyle(fontSize: 20)),
-                          )
+                          reserveButton()
                         ]),
                       ]),
                     ),
@@ -467,6 +359,21 @@ class HomeDrawer extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+}
+
+class reserveButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton.extended(
+      backgroundColor: Colors.blue,
+      foregroundColor: Colors.white,
+      onPressed: () {
+        print('Reserve button has been pressed');
+      },
+      icon: Icon(Icons.check),
+      label: Text('Reserve', style: TextStyle(fontSize: 20)),
     );
   }
 }
