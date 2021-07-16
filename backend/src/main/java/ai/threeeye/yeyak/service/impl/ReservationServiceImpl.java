@@ -13,12 +13,15 @@ import ai.threeeye.yeyak.service.ReservationService;
 import com.mongodb.lang.Nullable;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.jni.Local;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,31 +37,54 @@ public class ReservationServiceImpl implements ReservationService {
     private final MongoTemplate mongo;
 
     @Override
-    public List<Reservation> list(@Nullable String deviceId, @Nullable String userId) throws Exception {
+    public List<Reservation> list(@Nullable String deviceId, @Nullable String userId, @Nullable LocalDateTime startedAt, @Nullable LocalDateTime endedAt) throws Exception {
         List<Reservation> reservationList;
-        Query query = new Query();
+
+        Query query = new Query(
+                //  Current time <= endedAt  : to show only valid reservation status.
+                //Criteria.where("endedAt").gte(LocalDateTime.now())
+        );
+
+        log.info("now: {}", LocalDateTime.now());
+
         if (StringUtils.hasText(deviceId) && StringUtils.hasText(userId)) { // 둘다 있을 경우
-            log.info("deviceId and userId exists");
+            log.info("Both deviceId and userId exists");
             query.addCriteria(new Criteria().andOperator(
                Criteria.where("device.$_id").is(deviceId),
                Criteria.where("user.$_id").is(userId)
             ));
-
-            reservationList = mongo.find(query, Reservation.class);
         } else if (StringUtils.hasText(deviceId)) { // deviceId 만 있을 경우
             log.info("Only deviceId exists");
             query.addCriteria(Criteria.where("device").is(deviceId));
-
-            reservationList = mongo.find(query, Reservation.class);
         } else if (StringUtils.hasText(userId)) { // userId 만 있을 경우
             log.info("Only userId exists");
             query.addCriteria(Criteria.where("user").is(userId));
-
-            reservationList = mongo.find(query, Reservation.class);
         } else { // 둘다 없을 경우
             log.info("No criteria");
-            reservationList = reservationRepository.findAll();
         }
+
+
+        if (!ObjectUtils.isEmpty(startedAt) && !ObjectUtils.isEmpty(endedAt)) {
+            log.info("Both startedAt and endedAt exists");
+            query.addCriteria(new Criteria().andOperator(// startedAt <= DB Data <= endedAt
+                    Criteria.where("startedAt").gte(startedAt),
+                    Criteria.where("endedAt").lte(endedAt)
+            ));
+        } else if (!ObjectUtils.isEmpty(startedAt)) { //startedAt <= startedAt at DB
+            log.info("Only startedAt exists");
+            query.addCriteria(
+                    Criteria.where("endedAt").gte(startedAt)
+            );
+        } else if (!ObjectUtils.isEmpty(endedAt)) { // endedAt at DB <= endedAt
+            log.info("Only endedAt exists");
+            query.addCriteria(
+                    Criteria.where("startedAt").lte(endedAt)
+            );
+        } else {
+            log.info("No time criteria");
+        }
+
+        reservationList = mongo.find(query, Reservation.class);
 
         return reservationList;
     }
@@ -66,7 +92,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public Reservation create(CreateReservationDTO payload) throws Exception {
         if (payload.getStartedAt().isAfter(payload.getEndedAt())) {
-            throw new ApiException(ApiErrorCode.INVALID_PARAMETER, "시간을 알맞게 입력해주세요");
+            throw new ApiException(ApiErrorCode.INVALID_PARAMETER);
         }
 
         Optional<Device> maybeDevice = deviceRepository.findById(payload.getDeviceId());
