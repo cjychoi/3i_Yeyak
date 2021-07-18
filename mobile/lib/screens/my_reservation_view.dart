@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile/models/Reservation.dart';
-// import 'package:mobile/models/User.dart';
+import 'package:mobile/models/User.dart';
 import 'package:mobile/viewModel/MyReservationViewModel.dart';
+
 //import 'package:mobile/screens/login_view.dart';
+void main() => runApp(MyPage());
 
 class MyPage extends StatelessWidget {
   // This widget is the root of your application.
@@ -20,15 +22,23 @@ class MyPage extends StatelessWidget {
 //   //String returnDate;
 //   String deviceName;
 
-//   User(
+// class Reservation {
+//   String returnDate;
+//   String date;
+//   //String returnDate;
+//   String deviceName;
+
+// User(
+//     {required this.returnDate, required this.date, required this.deviceName});
+//   Reservation(
 //       {required this.returnDate, required this.date, required this.deviceName});
 
 //   static List<User> getUsers() {
 //     return <User>[
 //       User(
-//           date: "2021-07-21 05:30",
-//           returnDate: "2021-07-21 07:30",
-//           deviceName: "S 10"),
+//           date: "2021-07-21 06:30",
+//           returnDate: "2021-07-21 08:30",
+//           deviceName: "Note 20"),
 //       User(
 //           date: "2021-07-21 06:30",
 //           returnDate: "2021-07-21 08:30",
@@ -61,7 +71,7 @@ class DataTableDemo extends StatefulWidget {
 class DataTableDemoState extends State<DataTableDemo> {
   // late List<User> users;
   // late List<User> selectedUsers;
-  List<Reservation>? reservations;
+  static late List<Reservation> reservations;
   late bool sort;
   bool isLoading = true;
 
@@ -97,7 +107,7 @@ class DataTableDemoState extends State<DataTableDemo> {
     super.initState();
   }
 
-  // onSortColum(int columnIndex, bool ascending) {
+  // onSortColumn(int columnIndex, bool ascending) {
   //   if (columnIndex == 0) {
   //     if (ascending) {
   //       users.sort((a, b) => a.date.compareTo(b.date));
@@ -134,6 +144,7 @@ class DataTableDemoState extends State<DataTableDemo> {
   //   return SingleChildScrollView(
   //     scrollDirection: Axis.vertical,
   //     child: DataTable(
+
   //       sortAscending: sort,
   //       sortColumnIndex: 0,
   //       columns: [
@@ -145,7 +156,7 @@ class DataTableDemoState extends State<DataTableDemo> {
   //               setState(() {
   //                 sort = !sort;
   //               });
-  //               onSortColum(columnIndex, ascending);
+  //               onSortColumn(columnIndex, ascending);
   //             }),
   //         DataColumn(
   //           label: Icon(Icons.calendar_today, color: Colors.green[500]),
@@ -158,13 +169,13 @@ class DataTableDemoState extends State<DataTableDemo> {
   //           tooltip: "This is the device name",
   //         )
   //       ],
-  //       rows: users
+  //       rows: reservations!
   //           .map(
-  //             (user) => DataRow(
-  //                 selected: selectedUsers.contains(user),
+  //             (reservation) => DataRow(
+  //                 selected: selectedUsers.contains(reservation),
   //                 onSelectChanged: (b) {
   //                   print("Onselect");
-  //                   onSelectedRow(b!, user);
+  //                   onSelectedRow(b!, reservation.user.username);
   //                 },
   //                 cells: [
   //                   DataCell(
@@ -177,7 +188,7 @@ class DataTableDemoState extends State<DataTableDemo> {
   //                     Text(user.returnDate),
   //                   ),
   //                   DataCell(
-  //                     Text(user.deviceName),
+  //                           Text(reservation.device.model),
   //                   ),
   //                 ]),
   //           )
@@ -199,11 +210,11 @@ class DataTableDemoState extends State<DataTableDemo> {
         body: isLoading || reservations == null
             ? Text("Loading...")
             :
-            // Column(
-            //     mainAxisSize: MainAxisSize.min,
-            //     mainAxisAlignment: MainAxisAlignment.center,
-            //     verticalDirection: VerticalDirection.down,
-            //     children: [
+            // body: Column(
+            //   mainAxisSize: MainAxisSize.min,
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   verticalDirection: VerticalDirection.down,
+            //   children: [
             Container(
                 child: reservations != null
                     ? ListView.builder(
@@ -240,7 +251,7 @@ class DataTableDemoState extends State<DataTableDemo> {
         //     ),
         //   ],
         // ),
-        //   ],
+        // ],
         // ),
         );
   }
