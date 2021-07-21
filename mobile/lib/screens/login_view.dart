@@ -13,6 +13,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _usernameController = TextEditingController(); // username 저장용
+  final RegExp checkUsername = RegExp(
+      r"^[a-zA-Z]{1,}(\.)?([a-zA-Z]{1,})?$"); // e.g. juan.kim, andrew.choi
   final LoginViewModel viewModel = LoginViewModel();
   bool _isLoading = false;
 
@@ -86,6 +88,9 @@ class _LoginPageState extends State<LoginPage> {
                                   // 입력값이 없으면 메시지 출력
                                   return 'Please enter text';
                                 }
+                                if (!checkUsername.hasMatch(value)) {
+                                  return 'Please check your name';
+                                }
                                 return null;
                               },
                               decoration: InputDecoration(
@@ -113,6 +118,7 @@ class _LoginPageState extends State<LoginPage> {
                   height: 25,
                 ),
                 ElevatedButton(
+                    // Login 버튼
                     style: ButtonStyle(
                         padding: MaterialStateProperty.all<EdgeInsets>(
                             EdgeInsets.all(15)),
@@ -126,7 +132,8 @@ class _LoginPageState extends State<LoginPage> {
                       // 버튼 press시 home_view로 전환
                       check();
                     },
-                    child: Text(_isLoading ? 'Logging in...' : 'Login',
+                    child: Text(
+                        _isLoading ? 'Logging in...' : '     Login     ',
                         style: TextStyle(fontSize: 20))),
               ],
             ),
