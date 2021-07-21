@@ -1,6 +1,6 @@
 class ApiResponse {
   int result;
-  Map<String, dynamic> data;
+  dynamic data;
 
   ApiResponse({required this.result, required this.data});
 

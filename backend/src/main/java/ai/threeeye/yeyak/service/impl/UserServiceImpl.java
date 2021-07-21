@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
             if (!StringUtils.hasText(payload.getUsername())) {
                 throw new ApiException(ApiErrorCode.INVALID_PARAMETER, "Username may not be empty");
             }
+
             User user = User.builder()
                     .username(payload.getUsername().trim().toLowerCase())
                     .build();

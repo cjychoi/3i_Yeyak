@@ -15,8 +15,9 @@ public class CreateReservationDTO {
 
     @NotEmpty(message = "UserId may not be empty")
     private String userId;
-    @NotEmpty(message = "DeviceId may not be empty")
+
     private String deviceId;
+    private String code;
 
     @NotEmpty(message = "StartedAt may not be empty")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)

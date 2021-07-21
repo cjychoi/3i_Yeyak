@@ -92,7 +92,7 @@ class DataTableDemoState extends State<DataTableDemo> {
                 onSortColum(columnIndex, ascending);
               }),
           DataColumn(
-            label: Icon(Icons.phone_android, color: Colors.green[500]),
+            label: Icon(Icons.smartphone, color: Colors.green[500]),
             numeric: false,
             tooltip: "This is Device Name",
           ),
