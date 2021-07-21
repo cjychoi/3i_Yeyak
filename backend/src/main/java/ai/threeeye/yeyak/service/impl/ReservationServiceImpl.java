@@ -94,8 +94,14 @@ public class ReservationServiceImpl implements ReservationService {
         if (payload.getStartedAt().isAfter(payload.getEndedAt())) {
             throw new ApiException(ApiErrorCode.INVALID_PARAMETER);
         }
-
-        Optional<Device> maybeDevice = deviceRepository.findById(payload.getDeviceId());
+        Optional<Device> maybeDevice;
+        if (StringUtils.hasText(payload.getDeviceId())) {
+            maybeDevice = deviceRepository.findById(payload.getDeviceId());
+        } else if (StringUtils.hasText(payload.getCode())) {
+            maybeDevice = deviceRepository.findByCode(payload.getCode());
+        } else {
+            throw new ApiException(ApiErrorCode.INVALID_PARAMETER);
+        }
         if (maybeDevice.isEmpty()) {
             throw new ApiException(ApiErrorCode.DEVICE_NOT_FOUND);
         }

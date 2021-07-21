@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart'; //datetime picker api
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mobile/globals.dart' as globals;
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/services.dart'; //
@@ -10,6 +11,7 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart'; //barcode
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart'; //date picker that supports formfield
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:mobile/util/DateUtil.dart';
+import 'package:mobile/viewModel/HomeViewModel.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -17,6 +19,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+  final HomeViewModel viewModel = HomeViewModel();
   //탭바 앱바 밑 바디에 사용하기
   late TabController _tabController; //tabcontroller to use tab bar
   final format = DateFormat(
@@ -28,6 +31,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   DateTime? value_return_date; //search by date -> return date
   DateTime?
       value; //date time value that will be initial DateTime(default), needed to make minute interval 30 minutes
+
+  final _codeController = TextEditingController();
+  bool isLoading = false;
 
   final DatePickerTheme datePickerTheme = DatePickerTheme(
       headerColor: Colors.blue,
@@ -48,6 +54,30 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     setState(() {
       endAt = value.roundWithin30Minutes();
     });
+  }
+
+  void reserve() {
+    if (startAt != null && endAt != null) {
+      setState(() {
+        isLoading = true;
+      });
+      viewModel
+          .reserve(_codeController.text, startAt!, endAt!)
+          .catchError((err) {
+        Fluttertoast.showToast(
+            msg: err.message,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM);
+      }).then((value) {
+        Fluttertoast.showToast(msg: "무야호");
+      }).whenComplete(() {
+        setState(() {
+          isLoading = false;
+        });
+      });
+    } else {
+      Fluttertoast.showToast(msg: "HaHa");
+    }
   }
 
   @override
@@ -178,6 +208,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   children: [
                                     Expanded(
                                         child: TextField(
+                                          controller: _codeController,
                                           decoration: InputDecoration(
                                               labelText: 'code'),
                                         ),
@@ -269,6 +300,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             foregroundColor: Colors.white,
                             onPressed: () {
                               print('Reserve button has been pressed');
+                              reserve();
                             },
                             icon: Icon(Icons.check),
                             label:
